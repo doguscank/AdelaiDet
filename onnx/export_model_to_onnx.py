@@ -18,6 +18,7 @@ import os
 import time
 import cv2
 import tqdm
+import numpy as np
 import types
 import torch
 from torch import nn
@@ -213,10 +214,10 @@ def main():
     )
     parser.add_argument('--width', default=0, type=int)
     parser.add_argument('--height', default=0, type=int)
-    parser.add_argument('--level', default=0, type=int)
+    # parser.add_argument('--level', default=0, type=int)
     parser.add_argument(
         "--output",
-        default="output/fcos.onnx",
+        default="output/solov2.onnx",
         metavar="FILE",
         help="path to the output onnx file",
     )
@@ -256,13 +257,14 @@ def main():
     _ = checkpointer.load(cfg.MODEL.WEIGHTS)
     logger.info("load Model:\n{}".format(cfg.MODEL.WEIGHTS))
 
-    height, width = 800, 1088
+    height, width = 1280, 1920
     if args.width > 0:
         width = args.width
     if args.height > 0:
         height = args.height
     input_names = ["input_image"]
-    dummy_input = torch.zeros((1, 3, height, width)).to(cfg.MODEL.DEVICE)
+    dummy_input = np.random.rand(height, width, 3)
+    dummy_input = torch.as_tensor(dummy_input.astype("float32").transpose(2, 0, 1))
     output_names = []
     if isinstance(model, condinst.CondInst):
         patch_condinst(cfg, model, output_names)
@@ -282,9 +284,11 @@ def main():
         if isinstance(model.mask_branch, MaskBranch):
             patch_mask_branch(cfg, model.mask_branch) # replace aligned_bilinear with nearest upsample
 
+    inputs = {"image": dummy_input, "height": height, "width": width}
+
     torch.onnx.export(
         model,
-        dummy_input,
+        inputs,
         args.output,
         verbose=True,
         input_names=input_names,

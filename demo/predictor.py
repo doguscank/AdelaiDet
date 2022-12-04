@@ -1,4 +1,5 @@
 # Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved
+import enum
 import numpy as np
 import atexit
 import bisect
@@ -40,7 +41,7 @@ class VisualizationDemo(object):
         else:
             self.predictor = DefaultPredictor(cfg)
 
-    def run_on_image(self, image):
+    def run_on_image(self, image, name=None):
         """
         Args:
             image (np.ndarray): an image of shape (H, W, C) (in BGR order).
@@ -50,6 +51,34 @@ class VisualizationDemo(object):
             predictions (dict): the output of the model.
             vis_output (VisImage): the visualized image output.
         """
+        def extract_bboxes(mask):
+            """Compute bounding boxes from masks.
+            mask: [height, width, num_instances]. Mask pixels are either 1 or 0.
+            Returns: bbox array [num_instances, (y1, x1, y2, x2)].
+            """
+            mask = np.transpose(mask, (1, 2, 0))
+            boxes = np.zeros([mask.shape[-1], 4], dtype=np.int32)
+            for i in range(mask.shape[-1]):
+                m = mask[:, :, i]
+                # Bounding box.
+                horizontal_indicies = np.where(np.any(m, axis=0))[0]
+                # print("np.any(m, axis=0)",np.any(m, axis=0))
+                # print("p.where(np.any(m, axis=0))",np.where(np.any(m, axis=0)))
+                vertical_indicies = np.where(np.any(m, axis=1))[0]
+                if horizontal_indicies.shape[0]:
+                    x1, x2 = horizontal_indicies[[0, -1]]
+                    y1, y2 = vertical_indicies[[0, -1]]
+                    # x2 and y2 should not be part of the box. Increment by 1.
+                    x2 += 1
+                    y2 += 1
+                else:
+                    # No mask for this instance. Might happen due to
+                    # resizing or cropping. Set bbox to zeros
+                    x1, x2, y1, y2 = 0, 0, 0, 0
+                boxes[i] = np.array([x1, y1, x2 - x1, y2 - y1])
+
+            return boxes.astype(np.int32)
+
         vis_output = None
         predictions = self.predictor(image)
         # Convert image from OpenCV BGR format to Matplotlib RGB format.
@@ -57,7 +86,10 @@ class VisualizationDemo(object):
         if self.vis_text:
             visualizer = TextVisualizer(image, self.metadata, instance_mode=self.instance_mode, cfg=self.cfg)
         else:
-            visualizer = Visualizer(image, self.metadata, instance_mode=self.instance_mode)
+            # visualizer = Visualizer(image, self.metadata, instance_mode=self.instance_mode)
+            visualizer = VideoVisualizer(self.metadata, instance_mode=self.instance_mode)
+        
+        classes = visualizer.metadata.get("thing_classes", None)    
 
         if "bases" in predictions:
             self.vis_bases(predictions["bases"])
@@ -72,7 +104,25 @@ class VisualizationDemo(object):
                     predictions["sem_seg"].argmax(dim=0).to(self.cpu_device))
             if "instances" in predictions:
                 instances = predictions["instances"].to(self.cpu_device)
-                vis_output = visualizer.draw_instance_predictions(predictions=instances)
+                
+                if name is None:
+                    name = "result.txt"
+                else:
+                    name = name.replace("jpg", "txt")
+
+                pred_scores = instances.get_fields()["scores"].cpu().numpy()
+                pred_classes = instances.get_fields()["pred_classes"].cpu().numpy()
+
+                with open(name, "w") as f:
+                    for idx, bbox in enumerate(extract_bboxes(instances.get_fields()["pred_masks"].cpu().numpy())):
+                        f.write(str(classes[pred_classes[idx]]))
+                        f.write(",")
+                        for coord in bbox:
+                            f.write(str(coord))
+                            f.write(",")
+                        f.write(str(pred_scores[idx]))
+                        f.write("\n")
+                vis_output = visualizer.draw_instance_predictions(image, predictions=instances)
 
         return predictions, vis_output
 

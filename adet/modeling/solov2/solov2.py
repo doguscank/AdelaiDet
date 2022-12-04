@@ -105,6 +105,7 @@ class SOLOv2(nn.Module):
             losses (dict[str: Tensor]): mapping from a named loss to a tensor
                 storing the loss. Used during training only.
         """
+        batched_inputs = [batched_inputs]
         images = self.preprocess_image(batched_inputs)
         if "instances" in batched_inputs[0]:
             gt_instances = [x["instances"].to(self.device) for x in batched_inputs]
@@ -117,6 +118,12 @@ class SOLOv2(nn.Module):
             gt_instances = None
 
         features = self.backbone(images.tensor)
+
+        for f in features:
+            try:
+                print(f, features[f].shape)
+            except:
+                print(f.cpu())
 
         # ins branch
         ins_features = [features[f] for f in self.instance_in_features]
@@ -378,6 +385,7 @@ class SOLOv2(nn.Module):
     ):
         # overall info.
         h, w = cur_size
+        # print("seg_preds size:", seg_preds.shape)
         f_h, f_w = seg_preds.size()[-2:]
         ratio = math.ceil(h/f_h)
         upsampled_size_out = (int(f_h*ratio), int(f_w*ratio))
@@ -395,18 +403,32 @@ class SOLOv2(nn.Module):
 
         # cate_labels & kernel_preds
         inds = inds.nonzero()
+        # print("-------------\nINDS:")
+        # print(inds.shape, inds)
+        # print("---------------")
         cate_labels = inds[:, 1]
         kernel_preds = kernel_preds[inds[:, 0]]
 
         # trans vector.
         size_trans = cate_labels.new_tensor(self.num_grids).pow(2).cumsum(0)
+        # print("size trans")
+        # print(size_trans)
+        # print("----------")
         strides = kernel_preds.new_ones(size_trans[-1])
+        # print("strides init")
+        # print(strides)
+        # print("----------")
+        # print("num grids: ", self.num_grids)
 
         n_stage = len(self.num_grids)
         strides[:size_trans[0]] *= self.instance_strides[0]
         for ind_ in range(1, n_stage):
             strides[size_trans[ind_ - 1]:size_trans[ind_]] *= self.instance_strides[ind_]
         strides = strides[inds[:, 0]]
+
+        # print("strides final")
+        # print(strides)
+        # print("----------")
 
         # mask encoding.
         N, I = kernel_preds.shape

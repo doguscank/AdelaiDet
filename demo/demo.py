@@ -67,7 +67,7 @@ def get_parser():
 if __name__ == "__main__":
     mp.set_start_method("spawn", force=True)
     args = get_parser().parse_args()
-    logger = setup_logger()
+    logger = setup_logger(output="./log.txt")
     logger.info("Arguments: " + str(args))
 
     cfg = setup_cfg(args)
@@ -84,7 +84,7 @@ if __name__ == "__main__":
             # use PIL, to be consistent with evaluation
             img = read_image(path, format="BGR")
             start_time = time.time()
-            predictions, visualized_output = demo.run_on_image(img)
+            predictions, visualized_output = demo.run_on_image(img, name=path.replace("png", "txt").replace("inputs", "results"))
             logger.info(
                 "{}: detected {} instances in {:.2f}s".format(
                     path, len(predictions["instances"]), time.time() - start_time
