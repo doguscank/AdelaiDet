@@ -16,6 +16,10 @@ from adet.config import get_cfg
 # constants
 WINDOW_NAME = "COCO detections"
 
+import warnings
+
+# Turn off all warning messages
+warnings.simplefilter("ignore")
 
 def setup_cfg(args):
     # load config from file and command-line arguments
