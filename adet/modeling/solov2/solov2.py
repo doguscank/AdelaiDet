@@ -120,25 +120,14 @@ class SOLOv2(nn.Module):
 
         features = self.backbone(images.tensor)
 
-        for f in features:
-            try:
-                print(f, features[f].shape)
-            except:
-                print(f.cpu())
-
         # ins branch
         ins_features = [features[f] for f in self.instance_in_features]
         ins_features = self.split_feats(ins_features)
-        print(f"ins features len before: {len(ins_features)}")
-        print(f"ins features before ins_head: {[f.shape for f in ins_features]}")
         cate_pred, kernel_pred = self.ins_head(ins_features)
-        print(f"cate_pred: {[f.shape for f in cate_pred]}, kernel_pred: {[f.shape for f in kernel_pred]}")
 
         # mask branch
         mask_features = [features[f] for f in self.mask_in_features]
-        print(f"mask features before mask_head: {[f.shape for f in mask_features]}")
         mask_pred = self.mask_head(mask_features)
-        print(f"mask_pred: {[f.shape for f in mask_pred]}")
 
         if self.training:
             """
@@ -391,7 +380,6 @@ class SOLOv2(nn.Module):
     ):
         # overall info.
         h, w = cur_size
-        # print("seg_preds size:", seg_preds.shape)
         f_h, f_w = seg_preds.size()[-2:]
         ratio = math.ceil(h/f_h)
         upsampled_size_out = (int(f_h*ratio), int(f_w*ratio))
@@ -409,22 +397,12 @@ class SOLOv2(nn.Module):
 
         # cate_labels & kernel_preds
         inds = inds.nonzero()
-        # print("-------------\nINDS:")
-        # print(inds.shape, inds)
-        # print("---------------")
         cate_labels = inds[:, 1]
         kernel_preds = kernel_preds[inds[:, 0]]
 
         # trans vector.
         size_trans = cate_labels.new_tensor(self.num_grids).pow(2).cumsum(0)
-        # print("size trans")
-        # print(size_trans)
-        # print("----------")
         strides = kernel_preds.new_ones(size_trans[-1])
-        # print("strides init")
-        # print(strides)
-        # print("----------")
-        # print("num grids: ", self.num_grids)
 
         n_stage = len(self.num_grids)
         strides[:size_trans[0]] *= self.instance_strides[0]
@@ -432,9 +410,6 @@ class SOLOv2(nn.Module):
             strides[size_trans[ind_ - 1]:size_trans[ind_]] *= self.instance_strides[ind_]
         strides = strides[inds[:, 0]]
 
-        # print("strides final")
-        # print(strides)
-        # print("----------")
 
         # mask encoding.
         N, I = kernel_preds.shape
@@ -523,11 +498,11 @@ class SOLOv2(nn.Module):
 
         # get bbox from mask
         pred_boxes = torch.zeros(seg_masks.size(0), 4)
-        #for i in range(seg_masks.size(0)):
-        #    mask = seg_masks[i].squeeze()
-        #    ys, xs = torch.where(mask)
-        #    pred_boxes[i] = torch.tensor([xs.min(), ys.min(), xs.max(), ys.max()]).float()
-        results.pred_boxes = Boxes(pred_boxes)        
+        for i in range(seg_masks.size(0)):
+           mask = seg_masks[i].squeeze()
+           ys, xs = torch.where(mask)
+           pred_boxes[i] = torch.tensor([xs.min(), ys.min(), xs.max(), ys.max()]).float()
+        results.pred_boxes = Boxes(pred_boxes)
 
         return results
 
@@ -630,7 +605,6 @@ class SOLOv2InsHead(nn.Module):
         kernel_pred = []
 
         for idx, feature in enumerate(features):
-            print(f"Feature p{idx+2}")
             ins_kernel_feat = feature
             # concat coord
             x_range = torch.linspace(-1, 1, ins_kernel_feat.shape[-1], device=ins_kernel_feat.device)
@@ -736,11 +710,6 @@ class SOLOv2MaskHead(nn.Module):
             nn.ReLU(inplace=True)
         )
 
-        print("convs_all_levels")
-        print(self.convs_all_levels)
-        print("conv_pred")
-        print(self.conv_pred)
-
         for modules in [self.convs_all_levels, self.conv_pred]:
             for l in modules.modules():
                 if isinstance(l, nn.Conv2d):
@@ -762,8 +731,6 @@ class SOLOv2MaskHead(nn.Module):
 
         # bottom features first.
         feature_add_all_level = self.convs_all_levels[0](features[0])
-        print("2 feature_add_all_level")
-        print(feature_add_all_level.shape)
         for i in range(1, self.num_levels):
             mask_feat = features[i]
             if i == 3:  # add for coord.
@@ -776,8 +743,6 @@ class SOLOv2MaskHead(nn.Module):
                 mask_feat = torch.cat([mask_feat, coord_feat], 1)
             # add for top features.
             feature_add_all_level = feature_add_all_level + self.convs_all_levels[i](mask_feat)
-            print(f"{i+2} feature_add_all_level")
-            print(feature_add_all_level.shape)
 
         mask_pred = self.conv_pred(feature_add_all_level)
         return mask_pred

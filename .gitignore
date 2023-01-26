@@ -9,6 +9,8 @@ inference_test_output
 *.txt
 *.mat
 *.zip
+*.mp4
+*.avi
 
 # compilation and distribution
 __pycache__
@@ -18,6 +20,7 @@ _ext
 AdelaiDet.egg-info/
 build/
 dist/
+datasets/
 
 # pytorch/python/numpy formats
 *.pth

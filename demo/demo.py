@@ -21,6 +21,7 @@ import warnings
 # Turn off all warning messages
 warnings.simplefilter("ignore")
 
+
 def setup_cfg(args):
     # load config from file and command-line arguments
     cfg = get_cfg()
@@ -31,7 +32,9 @@ def setup_cfg(args):
     cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = args.confidence_threshold
     cfg.MODEL.FCOS.INFERENCE_TH_TEST = args.confidence_threshold
     cfg.MODEL.MEInst.INFERENCE_TH_TEST = args.confidence_threshold
-    cfg.MODEL.PANOPTIC_FPN.COMBINE.INSTANCES_CONFIDENCE_THRESH = args.confidence_threshold
+    cfg.MODEL.PANOPTIC_FPN.COMBINE.INSTANCES_CONFIDENCE_THRESH = (
+        args.confidence_threshold
+    )
     cfg.freeze()
     return cfg
 
@@ -44,9 +47,13 @@ def get_parser():
         metavar="FILE",
         help="path to config file",
     )
-    parser.add_argument("--webcam", action="store_true", help="Take inputs from webcam.")
+    parser.add_argument(
+        "--webcam", action="store_true", help="Take inputs from webcam."
+    )
     parser.add_argument("--video-input", help="Path to video file.")
-    parser.add_argument("--input", nargs="+", help="A list of space separated input images")
+    parser.add_argument(
+        "--input", nargs="+", help="A list of space separated input images"
+    )
     parser.add_argument(
         "--output",
         help="A file or directory to save output visualizations. "
@@ -80,7 +87,10 @@ if __name__ == "__main__":
 
     if args.input:
         if os.path.isdir(args.input[0]):
-            args.input = [os.path.join(args.input[0], fname) for fname in os.listdir(args.input[0])]
+            args.input = [
+                os.path.join(args.input[0], fname)
+                for fname in os.listdir(args.input[0])
+            ]
         elif len(args.input) == 1:
             args.input = glob.glob(os.path.expanduser(args.input[0]))
             assert args.input, "The input path(s) was not found"
@@ -88,7 +98,7 @@ if __name__ == "__main__":
             # use PIL, to be consistent with evaluation
             img = read_image(path, format="BGR")
             start_time = time.time()
-            predictions, visualized_output = demo.run_on_image(img, name=path.replace("png", "txt").replace("inputs", "results"))
+            predictions, visualized_output = demo.run_on_image(img, path)
             logger.info(
                 "{}: detected {} instances in {:.2f}s".format(
                     path, len(predictions["instances"]), time.time() - start_time
@@ -96,13 +106,30 @@ if __name__ == "__main__":
             )
 
             if args.output:
-                if os.path.isdir(args.output):
-                    assert os.path.isdir(args.output), args.output
-                    out_filename = os.path.join(args.output, os.path.basename(path))
-                else:
-                    assert len(args.input) == 1, "Please specify a directory with args.output"
-                    out_filename = args.output
+                if not os.path.exists(args.output):
+                    os.makedirs(args.output, 0o755, True)
+                if not os.path.exists(os.path.join(args.output, "masked_images")):
+                    os.makedirs(os.path.join(args.output, "masked_images"), 0o755, True)
+                if not os.path.exists(os.path.join(args.output, "bboxes")):
+                    os.makedirs(os.path.join(args.output, "bboxes"), 0o755, True)
+
+                out_filename = os.path.join(args.output, "masked_images", os.path.basename(path))
                 visualized_output.save(out_filename)
+
+                with open(out_filename.replace("jpg", "txt").replace("masked_images", "bboxes"), "w") as f:
+                    for _class, _score, _bbox in list(
+                        zip(
+                            predictions["instances"].get_fields()["pred_classes"].cpu().numpy(),
+                            predictions["instances"].get_fields()["scores"].cpu().numpy(),
+                            predictions["instances"].get_fields()["pred_boxes"].tensor.cpu().numpy(),
+                        )
+                    ):
+                        f.write(str(_class))
+                        f.write(",")
+                        f.write(str(_score))
+                        f.write(",")
+                        f.write(",".join([str(x) for x in _bbox]))
+                        f.write("\n")
             else:
                 cv2.imshow(WINDOW_NAME, visualized_output.get_image()[:, :, ::-1])
                 if cv2.waitKey(0) == 27:
