@@ -510,7 +510,7 @@ class SOLOv2(nn.Module):
 class SOLOv2InsHead(nn.Module):
     def __init__(self, cfg, input_shape: List[ShapeSpec]):
         """
-        SOLOv2 Instance Head.
+        SOLOv2 Instance Head. (category head)
         """
         super().__init__()
         # fmt: off
