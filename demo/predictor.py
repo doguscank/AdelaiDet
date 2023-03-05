@@ -86,7 +86,7 @@ class VisualizationDemo(object):
                     os.makedirs(mask_path, 0o755, True)
 
                 for idx, pred_mask in enumerate(instances.get_fields()["pred_masks"]):
-                    cv2.imwrite(os.path.join(mask_path, image_name.replace(".jpg", f"_{idx}.jpg")), pred_mask.cpu().numpy().astype(np.uint8) * 255)
+                    cv2.imwrite(os.path.join(mask_path, image_name.replace(".jpg", f"_{idx:04}.jpg")), pred_mask.cpu().numpy().astype(np.uint8) * 255)
                 
                 pred_scores = instances.get_fields()["scores"].cpu().numpy()
                 pred_classes = instances.get_fields()["pred_classes"].cpu().numpy()

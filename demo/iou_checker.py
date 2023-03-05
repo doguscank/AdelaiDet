@@ -1,3 +1,4 @@
+import json
 import os
 
 import cv2
@@ -5,6 +6,93 @@ import numpy as np
 from tqdm import tqdm
 
 from adet.modeling.MEInst.LME import IOUMetric
+
+CLASSES = (
+    "person",
+    "bicycle",
+    "car",
+    "motorcycle",
+    "airplane",
+    "bus",
+    "train",
+    "truck",
+    "boat",
+    "traffic light",
+    "fire hydrant",
+    "stop sign",
+    "parking meter",
+    "bench",
+    "bird",
+    "cat",
+    "dog",
+    "horse",
+    "sheep",
+    "cow",
+    "elephant",
+    "bear",
+    "zebra",
+    "giraffe",
+    "backpack",
+    "umbrella",
+    "handbag",
+    "tie",
+    "suitcase",
+    "frisbee",
+    "skis",
+    "snowboard",
+    "sports ball",
+    "kite",
+    "baseball bat",
+    "baseball glove",
+    "skateboard",
+    "surfboard",
+    "tennis racket",
+    "bottle",
+    "wine glass",
+    "cup",
+    "fork",
+    "knife",
+    "spoon",
+    "bowl",
+    "banana",
+    "apple",
+    "sandwich",
+    "orange",
+    "broccoli",
+    "carrot",
+    "hot dog",
+    "pizza",
+    "donut",
+    "cake",
+    "chair",
+    "couch",
+    "potted plant",
+    "bed",
+    "dining table",
+    "toilet",
+    "tv",
+    "laptop",
+    "mouse",
+    "remote",
+    "keyboard",
+    "cell phone",
+    "microwave",
+    "oven",
+    "toaster",
+    "sink",
+    "refrigerator",
+    "book",
+    "clock",
+    "vase",
+    "scissors",
+    "teddy bear",
+    "hair drier",
+    "toothbrush",
+)
+
+
+def most_frequent(List):
+    return max(set(List), key=List.count)
 
 
 def rle_to_mask(rle, shape):
@@ -40,7 +128,7 @@ def IoU(pred_mask, true_mask):
     intersection = np.logical_and(pred_mask, true_mask)
     union = np.logical_or(pred_mask, true_mask)
     iou_score = np.sum(intersection) / np.sum(union)
-    
+
     return iou_score
 
 
@@ -56,16 +144,21 @@ def dice_coeff(pred_mask, true_mask):
     assert pred_mask.shape == true_mask.shape, "Masks have different shapes"
     dice = (
         np.sum(pred_mask[true_mask == 255])
+        / 255
         * 2.0
-        / (np.sum(pred_mask) + np.sum(true_mask))
+        / (np.sum((pred_mask / 255) ** 2) + np.sum((true_mask / 255) ** 2))
     )
     return dice
 
 
-def create_masked_video(images, masks, output_file, fps):
+def create_masked_video(images, masks, output_file, fps, dataset_name):
     fourcc = cv2.VideoWriter_fourcc(*"mp4v")
     height, width, _ = images[0].shape
     out = cv2.VideoWriter(output_file, fourcc, fps, (width, height))
+
+    masked_detections_dir = os.path.join(
+        f"results", "{dataset_name}", "masked_detections"
+    )
 
     for i in range(len(images)):
         img = images[i]
@@ -82,24 +175,35 @@ def create_masked_video(images, masks, output_file, fps):
         except:
             print(img.shape, mask.shape, img.dtype, mask.dtype)
 
+        cv2.imwrite(os.path.join(masked_detections_dir, f"{(i+1):08}.png"), img)
         out.write(img)
 
     out.release()
 
 
-def dataset_evaluator(vot22_dataset_name):
+def dataset_evaluator(vot22_dataset_name, min_iou=0.5):
     gt_path = os.path.join(
         "datasets", "vot2022", vot22_dataset_name, "annotations", "groundtruth.txt"
     )
 
     image_dir = os.path.join("datasets", "vot2022", vot22_dataset_name, "images")
-
-    masks_dir = os.path.join(f"results_{vot22_dataset_name}", "masks", "{0}")
+    masked_detections_dir = os.path.join(
+        f"results", "{vot22_dataset_name}", "masked_detections"
+    )
+    masks_dir = os.path.join(f"results", "{vot22_dataset_name}", "masks", "{0}")
+    gt_dir = os.path.join(f"results", "{vot22_dataset_name}", "gt")
+    bboxes_dir = os.path.join(f"results", "{vot22_dataset_name}", "bboxes", "{0}.txt")
 
     shape = None
 
-    if not os.path.exists(f"results_{vot22_dataset_name}"):
-        os.mkdir(f"results_{vot22_dataset_name}")
+    if not os.path.exists(f"results", "{vot22_dataset_name}"):
+        os.mkdir(f"results", "{vot22_dataset_name}")
+
+    if not os.path.exists(masked_detections_dir):
+        os.mkdir(masked_detections_dir)
+
+    if not os.path.exists(gt_dir):
+        os.mkdir(gt_dir)
 
     if not os.path.exists(masks_dir[:-4]):
         os.mkdir(masks_dir[:-4])
@@ -109,6 +213,9 @@ def dataset_evaluator(vot22_dataset_name):
     accuracy_values = []
     dice_values = []
 
+    mask_classes = {}
+    mask_class_list = []
+
     shape = cv2.imread(os.path.join(image_dir, image_paths[0])).shape[:2][::-1]
 
     with open(gt_path, "r") as f:
@@ -116,6 +223,8 @@ def dataset_evaluator(vot22_dataset_name):
 
         image_list = []
         mask_list = []
+
+        open(os.path.join(f"results", "{vot22_dataset_name}", "ious.txt"), "w").close()
 
         for idx, rle in tqdm(enumerate(rle_data)):
             splitted_rle = rle[1:].split(",")
@@ -126,6 +235,8 @@ def dataset_evaluator(vot22_dataset_name):
             instance_mask = rle_to_mask(mask_rle, (w, h))
             mask = np.zeros(shape[::-1])
             mask[y0 : y0 + h, x0 : x0 + w] = instance_mask
+
+            cv2.imwrite(os.path.join(gt_dir, "{:08}.png".format(idx + 1)), mask)
 
             image_list.append(cv2.imread(os.path.join(image_dir, image_paths[idx])))
 
@@ -146,7 +257,7 @@ def dataset_evaluator(vot22_dataset_name):
                 mask_list.append(np.zeros(shape[::-1], dtype=np.uint8))
                 continue
 
-            max_iou = 0.5  # initial value is threshold value
+            max_iou = min_iou  # initial value is threshold value
             max_iou_idx = -1
 
             for idxx, mask_path in enumerate(mask_paths):
@@ -156,6 +267,7 @@ def dataset_evaluator(vot22_dataset_name):
                 )
 
                 iou_score = IoU(pred_mask, mask)
+
                 if iou_score > max_iou:
                     max_iou = iou_score
                     max_iou_idx = idxx
@@ -165,6 +277,12 @@ def dataset_evaluator(vot22_dataset_name):
                 accuracy_values.append(0)
                 dice_values.append(0)
                 mask_list.append(np.zeros(shape[::-1], dtype=np.uint8))
+                continue
+
+            with open(
+                os.path.join(f"results", "{vot22_dataset_name}", "ious.txt"), "a"
+            ) as f:
+                f.write(f"{(idx + 1):08}:{max_iou:.3f}\n")
 
             mask_list.append(
                 cv2.imread(
@@ -172,6 +290,12 @@ def dataset_evaluator(vot22_dataset_name):
                     cv2.IMREAD_GRAYSCALE,
                 )
             )
+
+            with open(bboxes_dir.format(image_name), "r") as f:
+                bbox_data = f.read().split("\n")[:-1]
+
+            mask_classes[idx] = CLASSES[int(bbox_data[max_iou_idx].split(",")[0])]
+            mask_class_list.append(CLASSES[int(bbox_data[max_iou_idx].split(",")[0])])
 
             iou_values.append(max_iou)
             accuracy_values.append(
@@ -205,20 +329,20 @@ def dataset_evaluator(vot22_dataset_name):
     macc = np.mean(accuracy_values)
     mdice = np.mean(dice_values)
 
-    if miou != 0.0:
-        nonzero_miou = np.mean(iou_values[iou_values != 0.0])
-    else:
-        nonzero_miou = 0.0
+    # if miou != 0.0:
+    #     nonzero_miou = np.mean(iou_values[iou_values != 0.0])
+    # else:
+    #     nonzero_miou = 0.0
 
-    if macc != 0.0:
-        nonzero_macc = np.mean(accuracy_values[accuracy_values != 0.0])
-    else:
-        nonzero_macc = 0.0
+    # if macc != 0.0:
+    #     nonzero_macc = np.mean(accuracy_values[accuracy_values != 0.0])
+    # else:
+    #     nonzero_macc = 0.0
 
-    if mdice != 0.0:
-        nonzero_mdice = np.mean(dice_values[dice_values != 0.0])
-    else:
-        nonzero_mdice = 0.0
+    # if mdice != 0.0:
+    #     nonzero_mdice = np.mean(dice_values[dice_values != 0.0])
+    # else:
+    #     nonzero_mdice = 0.0
 
     find_rates_n = np.sum(np.array([iou_values != 0.0], dtype=int))
     find_rates_d = len(iou_values)
@@ -230,34 +354,49 @@ def dataset_evaluator(vot22_dataset_name):
     print("find_rates:", find_rates)
 
     fps = 30
-    create_masked_video(image_list, mask_list, vot22_dataset_name + ".mp4", fps)
-    with open("results.txt", "a") as f:
+    create_masked_video(
+        image_list, mask_list, vot22_dataset_name + ".mp4", fps, vot22_dataset_name
+    )
+    with open("results.csv", "a") as f:
         f.write(
-            f"{vot22_dataset_name},{miou:.3f},{macc:.3f},{mdice:.3f},{nonzero_miou:.3f},{nonzero_macc:.3f},{nonzero_mdice:.3f},{find_rates_n:.3f},{find_rates_d:.3f},{find_rates:.3f}\n"
+            f"{vot22_dataset_name},{find_rates_d},{find_rates_n},{find_rates:.3f},{macc:.3f},{miou:.3f},{mdice:.3f},{most_frequent(mask_class_list)},{mask_class_list.count(most_frequent(mask_class_list))}\n"
         )
+
+    # with open("results_nz.txt", "a") as f:
+    #     f.write(
+    #         f"{vot22_dataset_name},{nonzero_miou:.3f},{nonzero_macc:.3f},{nonzero_mdice:.3f},{find_rates_n:.3f},{find_rates_d:.3f},{find_rates:.3f},{most_frequent(mask_class_list)},{mask_class_list.count(most_frequent(mask_class_list))}\n"
+    #     )
 
 
 if __name__ == "__main__":
-    vot_datasets = [
-        "bolt1",
-        "basketball",
-        "fernando",
-        "car1",
-        "gymnastics1",
-        "gymnastics2",
-        "iceskater1",
-        "iceskater2",
-        "singer2",
-    ]
+    with open("description.json", "r") as f:
+        data = json.load(f)
 
-    # for dataset in vot_datasets:
-    #     os.system(f"python demo/demo.py --config-file configs/SOLOv2/R101_3x.yaml --input ./datasets/vot2022/{dataset}/images --output ./results_{dataset} --opts MODEL.WEIGHTS weights/SOLOv2_R101_3x.pth")
-    #     os.system(f"mv results/masks results_{dataset}/masks")
+    vot_datasets = []
+    iou_values_to_test = [0.1 * i for i in range(10)]
 
-    with open("results.txt", "w") as f:
-        f.write(
-            f"dataset,miou,acc,dice,nonzero_miou,nonzero_macc,nonzero_mdice,found,total_images,find_rates\n"
+    for seq in data["sequences"]:
+        vot_datasets.append(seq["name"])
+
+    for dataset in vot_datasets:
+        if os.path.exists(f"results", "{dataset}/"):
+            print(f"results", "{dataset} exists. Continuing...")
+            continue
+
+        os.system(
+            f"python demo/demo.py --config-file configs/SOLOv2/R101_3x.yaml --input ./datasets/vot2022/{dataset}/images --output ./results_{dataset} --opts MODEL.WEIGHTS weights/SOLOv2_R101_3x.pth"
         )
+        os.system(f"mv results/masks results", "{dataset}/masks")
+
+    with open("results.csv", "w") as f:
+        f.write(
+            f"dataset,total_images,found,find_rates,acc,miou,dice,most_repetitive_class,most_repetitive_class_count\n"
+        )
+
+    # with open("results_nz.txt", "w") as f:
+    #     f.write(
+    #         f"dataset,miou,acc,dice,found,total_images,find_rates,most_repetitive_class,most_repetitive_class_count\n"
+    #     )
 
     for dataset in vot_datasets:
         dataset_evaluator(dataset)
