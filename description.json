@@ -1,0 +1,1619 @@
+{
+  "homepage": "https://votchallenge.net/vot2022/",
+  "name": "VOT2022 ST Challenge",
+  "sequences": [
+    {
+      "annotations": {
+        "checksum": "9189ec23d995f6cf33a7b6a4b7c1340768cba7f3",
+        "compressed": 29483,
+        "uid": "91faa966bb53fbdcb9e562df2f910e69c5763743bec597da4f25b98c27e1d1458959206dfe92fd0c6a0f7fadf2edeeace693340d1e72807d6eb47e5682135268",
+        "uncompressed": 28719,
+        "url": "agility.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "ba6c33925eed78d408e431641114bfe35806b64b",
+          "compressed": 3153822,
+          "pattern": "%08d.jpg",
+          "uid": "619736ae62946f3dac03c6a10154dcdecfb792c5fbebd81ffba40070b138f075f8fb5c977300c46d7b89535787688a6c75acca1ea25a24c74aa97278ca448d25",
+          "uncompressed": 3149622,
+          "url": "../../../sequences/619736ae62946f3dac03c6a10154dcdecfb792c5fbebd81ffba40070b138f075f8fb5c977300c46d7b89535787688a6c75acca1ea25a24c74aa97278ca448d25.zip"
+        }
+      },
+      "fps": "30",
+      "height": 480,
+      "length": 100,
+      "name": "agility",
+      "preview": "agility.gif",
+      "thumbnail": "agility.png",
+      "width": 854
+    },
+    {
+      "annotations": {
+        "checksum": "62fb966091ffafc15fb99e2d25c184f7381432bc",
+        "compressed": 23925,
+        "uid": "cb7151c0e3c2be9b7822cedae1a1649a93801e36a1a51fbe09c6b2391ab42be93e77e05fa7a9a02446c7a8fd3dfd7200844c8b221f6594ad057d025dbbace9c4",
+        "uncompressed": 23161,
+        "url": "animal.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "3299fff790ee5cf9ae67ce547ba7fb142ff0b98d",
+          "compressed": 3531937,
+          "pattern": "%08d.jpg",
+          "uid": "429ac622b0822158a154aa681cbb48770feca7d3d80973003c20c2c37156caa455c5d9de8dc12b614ee2fd0d40575bf02d698c798f3e8f8e1865450b164505bc",
+          "uncompressed": 3527737,
+          "url": "../../../sequences/429ac622b0822158a154aa681cbb48770feca7d3d80973003c20c2c37156caa455c5d9de8dc12b614ee2fd0d40575bf02d698c798f3e8f8e1865450b164505bc.zip"
+        }
+      },
+      "fps": "30",
+      "height": 720,
+      "length": 100,
+      "name": "animal",
+      "preview": "animal.gif",
+      "thumbnail": "animal.png",
+      "width": 1280
+    },
+    {
+      "annotations": {
+        "checksum": "340419db6928dad7673d14064c08324ce7399bfe",
+        "compressed": 117131,
+        "uid": "c1f4e839a0f7624c7e0691051b527af27f53bfbdbe94008857ce5a824111410390bd496d0c877b9151510aa22152284b58a0862abb14d7613c8626edef4473c9",
+        "uncompressed": 116367,
+        "url": "ants1.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "1bff64167391a1bad0d9ac9088ea3717ae5f86e3",
+          "compressed": 60157727,
+          "pattern": "%08d.jpg",
+          "uid": "8a7bcfb0f24bccb2459705d06fb10b1dbadf4594dcff79ee4e5d945f0c45357848ea526e763b5e711bf5854ba69a9c4fd177ee9202aa6a498c8a8d348ab69232",
+          "uncompressed": 60144077,
+          "url": "../../../sequences/8a7bcfb0f24bccb2459705d06fb10b1dbadf4594dcff79ee4e5d945f0c45357848ea526e763b5e711bf5854ba69a9c4fd177ee9202aa6a498c8a8d348ab69232.zip"
+        }
+      },
+      "fps": "30",
+      "height": 1024,
+      "length": 325,
+      "name": "ants1",
+      "preview": "ants1.gif",
+      "thumbnail": "ants1.png",
+      "width": 1024
+    },
+    {
+      "annotations": {
+        "checksum": "074070c63abae235aeec48dd2f72db984eb6158c",
+        "compressed": 166958,
+        "uid": "85817eaf624f527fb5794e362b0c7bbb414013be9706930fc742d15aa88761656db256af102f8354284f40091f8603b7cd5fc045dfc3656429578420c9179e0e",
+        "uncompressed": 166194,
+        "url": "bag.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "a2bee09d433068c173026c2a6d08fbc4204a0fe0",
+          "compressed": 7605400,
+          "pattern": "%08d.jpg",
+          "uid": "198d51022af594b154c920911298dd43f028f14c895727e2a79a60ed6b1e5e1ac42b0e7a7e0fb854e0ad77fe2e1a385ca540271d38bc9c0674d5ae8fb83fc1d9",
+          "uncompressed": 7592338,
+          "url": "../../../sequences/198d51022af594b154c920911298dd43f028f14c895727e2a79a60ed6b1e5e1ac42b0e7a7e0fb854e0ad77fe2e1a385ca540271d38bc9c0674d5ae8fb83fc1d9.zip"
+        }
+      },
+      "fps": "30",
+      "height": 720,
+      "length": 311,
+      "name": "bag",
+      "preview": "bag.gif",
+      "thumbnail": "bag.png",
+      "width": 1280
+    },
+    {
+      "annotations": {
+        "checksum": "4721411449ce8204381c2b850d3600b352996c01",
+        "compressed": 4308,
+        "uid": "c03e0b8636041f56e927ca4213f6cddb7a558272d082c50138c9489d40a0172e71984ac706e99220e355c853fcd418cd29c7ebd14abee8cbe04d364d9fe49053",
+        "uncompressed": 3438,
+        "url": "ball2.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "cacd19ca8fa635190ff48f16f4c16db3c55ac5b1",
+          "compressed": 3509710,
+          "pattern": "%08d.jpg",
+          "uid": "38fa36dfcfcb99f09b620e05278612ef94ed11c2abb76301d79d5a5ceb4b5f11d965519e57a921735cdf8b5d1723e4fac10206cb5d0f27c65ba4bb034a85f700",
+          "uncompressed": 3507988,
+          "url": "../../../sequences/38fa36dfcfcb99f09b620e05278612ef94ed11c2abb76301d79d5a5ceb4b5f11d965519e57a921735cdf8b5d1723e4fac10206cb5d0f27c65ba4bb034a85f700.zip"
+        }
+      },
+      "fps": "30",
+      "height": 720,
+      "length": 41,
+      "name": "ball2",
+      "preview": "ball2.gif",
+      "thumbnail": "ball2.png",
+      "width": 1280
+    },
+    {
+      "annotations": {
+        "checksum": "324849acb9e76090ec012d2c35f5d88d63c1bab8",
+        "compressed": 31570,
+        "uid": "54d3495b10755efa8b320ec770e8fe1e37bfbf1b18c60704ec0b8e1a84af32bc57e1534f7b285875143378257dfd23d33522786d58f71e337ba3f4ecbd3874d0",
+        "uncompressed": 30806,
+        "url": "ball3.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "50a8b2668c2477d4d187992991adc97782cc25f0",
+          "compressed": 15806051,
+          "pattern": "%08d.jpg",
+          "uid": "fd0ab760440f54c58758b1119e6aedbd93429ddc6898eb80958103f81086a7d63870e3ce66f78b2b10803d84037a73aad8850e11f1de2da2314956d49ccb64ad",
+          "uncompressed": 15798869,
+          "url": "../../../sequences/fd0ab760440f54c58758b1119e6aedbd93429ddc6898eb80958103f81086a7d63870e3ce66f78b2b10803d84037a73aad8850e11f1de2da2314956d49ccb64ad.zip"
+        }
+      },
+      "fps": "30",
+      "height": 810,
+      "length": 171,
+      "name": "ball3",
+      "preview": "ball3.gif",
+      "thumbnail": "ball3.png",
+      "width": 480
+    },
+    {
+      "annotations": {
+        "checksum": "7e32ddfb5c3de172409d4518c40b68ee9f048e0b",
+        "compressed": 643140,
+        "uid": "0dc4b2f2420c27c15da8c4d797f95345561cc3cba0dc32703536465741c3de1c3f3c77b5665fd12568ea90f0202b858f4d870cf500ede1054706a0b2a1ce412a",
+        "uncompressed": 642270,
+        "url": "basketball.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "a02fc76a74a6d68b7a44710e6efeafe7c5ae31e6",
+          "compressed": 53452363,
+          "pattern": "%08d.jpg",
+          "uid": "c43340aa8d5e43826796f55ad37ea66798352da36a44111c8a8a7b8f14e2f6d8adfe4ecca75a02a218be8ad5f81d4d10a14c8c84ad026b6ae515aa8b5e05b96a",
+          "uncompressed": 53421913,
+          "url": "../../../sequences/c43340aa8d5e43826796f55ad37ea66798352da36a44111c8a8a7b8f14e2f6d8adfe4ecca75a02a218be8ad5f81d4d10a14c8c84ad026b6ae515aa8b5e05b96a.zip"
+        }
+      },
+      "fps": "30",
+      "height": 432,
+      "length": 725,
+      "name": "basketball",
+      "preview": "basketball.gif",
+      "thumbnail": "basketball.png",
+      "width": 576
+    },
+    {
+      "annotations": {
+        "checksum": "daea2c4792ed199c3809559471a918a5148f5963",
+        "compressed": 101225,
+        "uid": "cf9184c6a1a85e8f40fd717a6d5f470e516fc87f196856cc0d08c5cca0e886a3fd33bc33a8e1f7a614df6a5d78b2ac9a1a4a1f0e601b2223fde00a294f9c1a5e",
+        "uncompressed": 100355,
+        "url": "birds1.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "d67faf10bf5c27ac30a1785d2b5f1bf21df92538",
+          "compressed": 24521225,
+          "pattern": "%08d.jpg",
+          "uid": "034dbc366a3e461e9c63f060b4b36e87662f1b5b6d7a11954e087bb42b406fe99672a9f0f15d90702176b1767bfe56305426f814839d3af90c9190518a378e4b",
+          "uncompressed": 24506987,
+          "url": "../../../sequences/034dbc366a3e461e9c63f060b4b36e87662f1b5b6d7a11954e087bb42b406fe99672a9f0f15d90702176b1767bfe56305426f814839d3af90c9190518a378e4b.zip"
+        }
+      },
+      "fps": "30",
+      "height": 720,
+      "length": 339,
+      "name": "birds1",
+      "preview": "birds1.gif",
+      "thumbnail": "birds1.png",
+      "width": 1280
+    },
+    {
+      "annotations": {
+        "checksum": "bf912f4340cc3c6f052aaef07e4536297e457ee7",
+        "compressed": 117004,
+        "uid": "773f40372e7653882f073d355e9cadddbbae72c201d0e7293942e39d9c290d99af2df07288a903770db2ce43db70d58cb565db4ee3efc843f3c6381f92f87e53",
+        "uncompressed": 116240,
+        "url": "birds2.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "651f806a44566ed0b42a3235745fc1e4b78983d6",
+          "compressed": 3246344,
+          "pattern": "%08d.jpg",
+          "uid": "3574eb39b8aa9ff76ef3ae25fb0d57494087dd35062021c02148bc303d6a356f779b2851401c89f0dc0acba0b1d5ca36fcc71584d29a5b6b87c18a68258595fc",
+          "uncompressed": 3242984,
+          "url": "../../../sequences/3574eb39b8aa9ff76ef3ae25fb0d57494087dd35062021c02148bc303d6a356f779b2851401c89f0dc0acba0b1d5ca36fcc71584d29a5b6b87c18a68258595fc.zip"
+        }
+      },
+      "fps": "30",
+      "height": 1080,
+      "length": 80,
+      "name": "birds2",
+      "preview": "birds2.gif",
+      "thumbnail": "birds2.png",
+      "width": 1920
+    },
+    {
+      "annotations": {
+        "checksum": "00dc08ac78bd64a25071b55272f8d623f0514a80",
+        "compressed": 199642,
+        "uid": "e93b86565cd0bc4cc66bde66eaac4fed1be7a0ea6c89b86557fb933a3d22f5b72318b77ce9c3653f9b1c2d2b646c5ac494baab8fbc95f9903f8f5aabae25f4cf",
+        "uncompressed": 198772,
+        "url": "bolt1.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "076bd2561642cd0a7e791ecce24cec2bf5d1437a",
+          "compressed": 82266043,
+          "pattern": "%08d.jpg",
+          "uid": "c9c033e485e60859c7bbb61887c7b2b1fdf40e8623c11d3521db70f328fbb6dc1e890961a16f1deea35c94b9ccaf67cf8e252e3e4d69ad6a9508024685212efd",
+          "uncompressed": 82251343,
+          "url": "../../../sequences/c9c033e485e60859c7bbb61887c7b2b1fdf40e8623c11d3521db70f328fbb6dc1e890961a16f1deea35c94b9ccaf67cf8e252e3e4d69ad6a9508024685212efd.zip"
+        }
+      },
+      "fps": "30",
+      "height": 360,
+      "length": 350,
+      "name": "bolt1",
+      "preview": "bolt1.gif",
+      "thumbnail": "bolt1.png",
+      "width": 640
+    },
+    {
+      "annotations": {
+        "checksum": "6e8264b2553ea2540b4093be396bd7e4c6cae9cb",
+        "compressed": 76647,
+        "uid": "2bc2d1cefb0b49e523d6c2477bd15f4dbb0a4cc648d97f6fa09aaa48ac8bbd641065f6d61624b1bf491b3176c147898f8fd50eb44c1fd55393fe3d9d2c744055",
+        "uncompressed": 75777,
+        "url": "book.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "fda9065e3b99f5d8ea4c914dcd1d5584402dfad7",
+          "compressed": 6846078,
+          "pattern": "%08d.jpg",
+          "uid": "bcc8ad5017e80ba8bd3412613f2a71e64ed1640d1238673e150fd0a6fed0e53cfabb8794feda064da3ddc6564362f95642bf4c70e5fce89da0c42aed5f571fba",
+          "uncompressed": 6838728,
+          "url": "../../../sequences/bcc8ad5017e80ba8bd3412613f2a71e64ed1640d1238673e150fd0a6fed0e53cfabb8794feda064da3ddc6564362f95642bf4c70e5fce89da0c42aed5f571fba.zip"
+        }
+      },
+      "fps": "30",
+      "height": 480,
+      "length": 175,
+      "name": "book",
+      "preview": "book.gif",
+      "thumbnail": "book.png",
+      "width": 640
+    },
+    {
+      "annotations": {
+        "checksum": "d923d2ecb49e5c51f087c29b8e0c7d17cea2b865",
+        "compressed": 147608,
+        "uid": "bcb6ae139ceee535e405359043b98d34a6543ea5796bdde869700d0daddd3bd952be2d07aaf9773b1b1de22686fda43208e238876e843801bbb302d226cd762b",
+        "uncompressed": 146844,
+        "url": "bubble.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "b4788336228ae52f541de30c956bc20dd2ffb286",
+          "compressed": 14385277,
+          "pattern": "%08d.jpg",
+          "uid": "9ed771be2a67b20e061603c46aa56e168e3187c2fde15c084af8dc88888512181635a9396be0080e31edc4836a3977dd50460e3602bbc91bc28929f14b754b2a",
+          "uncompressed": 14375071,
+          "url": "../../../sequences/9ed771be2a67b20e061603c46aa56e168e3187c2fde15c084af8dc88888512181635a9396be0080e31edc4836a3977dd50460e3602bbc91bc28929f14b754b2a.zip"
+        }
+      },
+      "fps": "30",
+      "height": 540,
+      "length": 243,
+      "name": "bubble",
+      "preview": "bubble.gif",
+      "thumbnail": "bubble.png",
+      "width": 960
+    },
+    {
+      "annotations": {
+        "checksum": "32160b2aa436939891aacc54b7d08fd4a2dcad35",
+        "compressed": 110740,
+        "uid": "ce5cab48a554b122783f9a23c78f471571dcb01b882915c350c34049a841d7506a81064fa847217694596a03163d7659610cb1206656389a95714ad11c71a343",
+        "uncompressed": 109870,
+        "url": "butterfly.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "9cdeaad7470a9b872aac23eec9d6a3a81de91f9b",
+          "compressed": 5919042,
+          "pattern": "%08d.jpg",
+          "uid": "bd98076f82f1046520bb4f4bc810bba03c71f4fa73f5b1b4ed3d6b97eef2b7e76d3c8e67126f26453e5a013d200406b1fd0529b515d8e1c0b60f90b42f834465",
+          "uncompressed": 5912700,
+          "url": "../../../sequences/bd98076f82f1046520bb4f4bc810bba03c71f4fa73f5b1b4ed3d6b97eef2b7e76d3c8e67126f26453e5a013d200406b1fd0529b515d8e1c0b60f90b42f834465.zip"
+        }
+      },
+      "fps": "30",
+      "height": 480,
+      "length": 151,
+      "name": "butterfly",
+      "preview": "butterfly.gif",
+      "thumbnail": "butterfly.png",
+      "width": 640
+    },
+    {
+      "annotations": {
+        "checksum": "306af84eb3c4bc74fc829532b437b1f0720055f3",
+        "compressed": 499853,
+        "uid": "c4225c60e742e591edbb304c4a0522c2f4fbab197045028fdc54b26a7a5abf5fd5d00f839e87ab9f7ef945ffbb87b0c7565348768662b7be804b4fdb2c2c83f8",
+        "uncompressed": 498985,
+        "url": "car1.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "1445ffb2970365054b02364c42d09bc54b12488f",
+          "compressed": 95426536,
+          "pattern": "%08d.jpg",
+          "uid": "88dfdfb0b261291e5540c6dcd8f358c2881d040bb2f169b2e39624282f34ad015377f47e461da54f1c99c6ecd8fcc86a2e639828d6fa70249b8c77c559c9b718",
+          "uncompressed": 95395372,
+          "url": "../../../sequences/88dfdfb0b261291e5540c6dcd8f358c2881d040bb2f169b2e39624282f34ad015377f47e461da54f1c99c6ecd8fcc86a2e639828d6fa70249b8c77c559c9b718.zip"
+        }
+      },
+      "fps": "30",
+      "height": 480,
+      "length": 742,
+      "name": "car1",
+      "preview": "car1.gif",
+      "thumbnail": "car1.png",
+      "width": 640
+    },
+    {
+      "annotations": {
+        "checksum": "43f03c6ab72cdad75b20ca2ef1fab85fd90508d9",
+        "compressed": 58452,
+        "uid": "bf16fa2740e71b44675d6ee4c7d22ff2b04b67b1c275e22e443440880d4a6d262e8e131b449c02d99c64555b39e9e2fc85dd72e21bb5f2a608670607275a7d2e",
+        "uncompressed": 57588,
+        "url": "conduction1.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "64ac60cc788c1039f1ac7c3df9ea559f1298105d",
+          "compressed": 68764884,
+          "pattern": "%08d.jpg",
+          "uid": "3d8065385dff510eb82c2c8890fa823541a62c8f74b667576622f135450fd6535550dcc61648a337c7eb9e8bc3ba3c24ad19e49667ddc4e170f58fd7214f307a",
+          "uncompressed": 68750394,
+          "url": "../../../sequences/3d8065385dff510eb82c2c8890fa823541a62c8f74b667576622f135450fd6535550dcc61648a337c7eb9e8bc3ba3c24ad19e49667ddc4e170f58fd7214f307a.zip"
+        }
+      },
+      "fps": "30",
+      "height": 720,
+      "length": 345,
+      "name": "conduction1",
+      "preview": "conduction1.gif",
+      "thumbnail": "conduction1.png",
+      "width": 1280
+    },
+    {
+      "annotations": {
+        "checksum": "c50d26d54f4812cda36c88051ae67e5c51855fbb",
+        "compressed": 97386,
+        "uid": "2f63d44d2bfa57a82473327647b786cc039286ec6c956b58c4b34081ca1a8d2f408ca8453289763e8f84a3237d487ec3d1e50e3f4aeb8272a69be8a70fdc41a6",
+        "uncompressed": 96622,
+        "url": "crabs1.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "3d73a46493534719fbc46eb75026d5a6dbe44488",
+          "compressed": 36467879,
+          "pattern": "%08d.jpg",
+          "uid": "10ea12dc20b43ad818b260cfb721ca899560dd7f4e03f2c90a00818cfa0f9d36e061049b6b530232d80eeb02b0bce0b7ea579349002f3612606f413197e054fa",
+          "uncompressed": 36461159,
+          "url": "../../../sequences/10ea12dc20b43ad818b260cfb721ca899560dd7f4e03f2c90a00818cfa0f9d36e061049b6b530232d80eeb02b0bce0b7ea579349002f3612606f413197e054fa.zip"
+        }
+      },
+      "fps": "30",
+      "height": 720,
+      "length": 160,
+      "name": "crabs1",
+      "preview": "crabs1.gif",
+      "thumbnail": "crabs1.png",
+      "width": 1280
+    },
+    {
+      "annotations": {
+        "checksum": "1ed0601660a6bc545c7e3ae2d7351cd493742367",
+        "compressed": 286868,
+        "uid": "01cc77938352662784c4e1a7e373981330f61840b853b17658996fba8d26a75ea030bfd1c0500b1dbe338f3595aeba780fde9cee4943d878b58024f1f76dfc3a",
+        "uncompressed": 285998,
+        "url": "dinosaur.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "a922193e64c2afc4781d5b7f95999cddebf339fa",
+          "compressed": 22462365,
+          "pattern": "%08d.jpg",
+          "uid": "c71cc7dff1689c21df85f91032c5d0338670f542731a3cbaa140568619a8a162cf96b043e5df427d71f3d83bfd32bc1af959c86a7761c7e4cf56a521fda9bf8c",
+          "uncompressed": 22448673,
+          "url": "../../../sequences/c71cc7dff1689c21df85f91032c5d0338670f542731a3cbaa140568619a8a162cf96b043e5df427d71f3d83bfd32bc1af959c86a7761c7e4cf56a521fda9bf8c.zip"
+        }
+      },
+      "fps": "30",
+      "height": 240,
+      "length": 326,
+      "name": "dinosaur",
+      "preview": "dinosaur.gif",
+      "thumbnail": "dinosaur.png",
+      "width": 320
+    },
+    {
+      "annotations": {
+        "checksum": "891629b9b63b9fb3c9484f04c350eebe9d822b86",
+        "compressed": 332633,
+        "uid": "cfd7dd0be0bba4f899a7b90b9d561371efa9136af5dbc51896c76b580016b5ce97a95e5b3041594b8607f6a0853e0651724b27d52e2d41e959ad7b4daf4c8837",
+        "uncompressed": 331869,
+        "url": "diver.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "5ccdfeb5496b715747e757478af4ea3bfa003201",
+          "compressed": 5416294,
+          "pattern": "%08d.jpg",
+          "uid": "52fc8c6d7645acbd766985ac95fd058bf945116bc25391a294a6da840910076a22e08125431b17476f3bd33b7b47703f1811a871f2b2c116dda239c94697ac58",
+          "uncompressed": 5406172,
+          "url": "../../../sequences/52fc8c6d7645acbd766985ac95fd058bf945116bc25391a294a6da840910076a22e08125431b17476f3bd33b7b47703f1811a871f2b2c116dda239c94697ac58.zip"
+        }
+      },
+      "fps": "30",
+      "height": 720,
+      "length": 241,
+      "name": "diver",
+      "preview": "diver.gif",
+      "thumbnail": "diver.png",
+      "width": 1280
+    },
+    {
+      "annotations": {
+        "checksum": "e2074c012c301e42fbd77d18eded8e028eeca111",
+        "compressed": 40168,
+        "uid": "84b00585c3bc7bf74fba116cd4eb28b27aad1b77df209cd485f4f5309859124e0dbbc0e9d6437b8bc6c46835b09f2c184201220ea15e92b0f6e3ec9417c94621",
+        "uncompressed": 39304,
+        "url": "drone1.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "1e6cbfc8a35f602f09684e2cdf9b7bfe5ce9807d",
+          "compressed": 35663342,
+          "pattern": "%08d.jpg",
+          "uid": "5202cf192aac2b25b3952e9b35d938ade976541c160f5ee6191f52189a265807f57bf826eadf5552437b36401c68ebd4527ee9211e6d11e1d177bc117121c459",
+          "uncompressed": 35648432,
+          "url": "../../../sequences/5202cf192aac2b25b3952e9b35d938ade976541c160f5ee6191f52189a265807f57bf826eadf5552437b36401c68ebd4527ee9211e6d11e1d177bc117121c459.zip"
+        }
+      },
+      "fps": "30",
+      "height": 720,
+      "length": 355,
+      "name": "drone1",
+      "preview": "drone1.gif",
+      "thumbnail": "drone1.png",
+      "width": 1280
+    },
+    {
+      "annotations": {
+        "checksum": "e61b18c4196478e62080fb178ed85907ceb74002",
+        "compressed": 34905,
+        "uid": "f83081d8223f16044e514f7bc84eab2b99c9ddbba34e5e1684bf26292da189ee728dc482a7db1d38957627c9526ab7d71c16e83c346a164af4855bf2974f4faf",
+        "uncompressed": 34041,
+        "url": "drone_across.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "f0072dd3da380dabd5d5c02c78ffb2fe15bd8b7d",
+          "compressed": 17236695,
+          "pattern": "%08d.jpg",
+          "uid": "2218209545443b56608431366235d4b5bd8ea1baa6c67ca0fb508d89fdefc1e9c3aa1453ed18a7dc84fd327a13ac1d2fafb6404469a3909e617728344a94b62f",
+          "uncompressed": 17230521,
+          "url": "../../../sequences/2218209545443b56608431366235d4b5bd8ea1baa6c67ca0fb508d89fdefc1e9c3aa1453ed18a7dc84fd327a13ac1d2fafb6404469a3909e617728344a94b62f.zip"
+        }
+      },
+      "fps": "30",
+      "height": 720,
+      "length": 147,
+      "name": "drone_across",
+      "preview": "drone_across.gif",
+      "thumbnail": "drone_across.png",
+      "width": 1280
+    },
+    {
+      "annotations": {
+        "checksum": "fd030841ba87f2f288b42207485a7fca135bd53a",
+        "compressed": 409054,
+        "uid": "8b5cfd81e9f2596a9d4b2436851b598ce7cc0e6fe740f3b118163bb86b00a189253b49b7cc8e9b54ff14ae28f137a9f05c425b890b5b0796e4e0dff74618af9c",
+        "uncompressed": 408184,
+        "url": "fernando.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "349f6c2018b9d9b182ca3d354a647a2de1f714b9",
+          "compressed": 28715562,
+          "pattern": "%08d.jpg",
+          "uid": "41317c77aabf12bee1716a20f6b973c833c790c0d6a69ef31b7587660ad5775100f577b01387248c2bc21c6714a76be50135f165b212854c308be462b467b203",
+          "uncompressed": 28703298,
+          "url": "../../../sequences/41317c77aabf12bee1716a20f6b973c833c790c0d6a69ef31b7587660ad5775100f577b01387248c2bc21c6714a76be50135f165b212854c308be462b467b203.zip"
+        }
+      },
+      "fps": "30",
+      "height": 480,
+      "length": 292,
+      "name": "fernando",
+      "preview": "fernando.gif",
+      "thumbnail": "fernando.png",
+      "width": 640
+    },
+    {
+      "annotations": {
+        "checksum": "8998193833e63f572f6fd9b19040f340af7eaaa2",
+        "compressed": 150643,
+        "uid": "3b66d442189881da2e7f6fdafd0e062aec15fee43b9076f5171a7894ed72b2ea54e2c007c245237be1b06dc9557e3290435acf5b1f2ce370a0034d874b3dfac5",
+        "uncompressed": 149773,
+        "url": "fish1.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "4d2e9fbd09e642766407dd16f30623612f1f403f",
+          "compressed": 50402229,
+          "pattern": "%08d.jpg",
+          "uid": "53da93c5f1be2cdda11f16bb9a4fb0112b17ab0c966fe143266f2065697a72d93aef538faf181feddc96f83d2d016dcdeef665189bc6d0a90fb2cf966c5146e2",
+          "uncompressed": 50386857,
+          "url": "../../../sequences/53da93c5f1be2cdda11f16bb9a4fb0112b17ab0c966fe143266f2065697a72d93aef538faf181feddc96f83d2d016dcdeef665189bc6d0a90fb2cf966c5146e2.zip"
+        }
+      },
+      "fps": "30",
+      "height": 345,
+      "length": 366,
+      "name": "fish1",
+      "preview": "fish1.gif",
+      "thumbnail": "fish1.png",
+      "width": 460
+    },
+    {
+      "annotations": {
+        "checksum": "2fba69cff0e5e42776cbe16bb33de8908469fef6",
+        "compressed": 128852,
+        "uid": "601a70ebd013c02ee603f7bd272fe55293a404c8841c2a65c811706e12ea1d150feb69b07447096bf3206c0daefbd90cf8699d4ac86745e22939f7d03d98f86a",
+        "uncompressed": 127982,
+        "url": "fish2.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "17898f71c0772a4b34551c1ef7f7ff1a959f004c",
+          "compressed": 26603157,
+          "pattern": "%08d.jpg",
+          "uid": "4035b12e329b478365acf26b164e6ed2703328165d8076a75c1adf13dd80b03ce8ff9b1df8a5545a518ef9fb8c05687de6b716962676c8464efd1389177639c8",
+          "uncompressed": 26590137,
+          "url": "../../../sequences/4035b12e329b478365acf26b164e6ed2703328165d8076a75c1adf13dd80b03ce8ff9b1df8a5545a518ef9fb8c05687de6b716962676c8464efd1389177639c8.zip"
+        }
+      },
+      "fps": "30",
+      "height": 360,
+      "length": 310,
+      "name": "fish2",
+      "preview": "fish2.gif",
+      "thumbnail": "fish2.png",
+      "width": 640
+    },
+    {
+      "annotations": {
+        "checksum": "7a96b9b25a279affd094eeed4b0fdc7ef181952c",
+        "compressed": 522188,
+        "uid": "c6f68c2e5193338719d4220bb9c1891c8029f38b76507c814ce4870b550dc823bf1db9a3b09eb6d03c7b749529b87d884bb603fd8de63be37ff6ec94628fc704",
+        "uncompressed": 521424,
+        "url": "flamingo1.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "2e6c50523d2f173b1fa81712ccadf8b076293250",
+          "compressed": 175009450,
+          "pattern": "%08d.jpg",
+          "uid": "59f62de64c84029a09f9308b08827c6c0b9aed8422b2c048a0acc5e6e995b6542b36f1e8bbb8307852d4af3cbd95696ec44b1baf4c39a7d72bcc4acb469dca43",
+          "uncompressed": 174951616,
+          "url": "../../../sequences/59f62de64c84029a09f9308b08827c6c0b9aed8422b2c048a0acc5e6e995b6542b36f1e8bbb8307852d4af3cbd95696ec44b1baf4c39a7d72bcc4acb469dca43.zip"
+        }
+      },
+      "fps": "30",
+      "height": 720,
+      "length": 1377,
+      "name": "flamingo1",
+      "preview": "flamingo1.gif",
+      "thumbnail": "flamingo1.png",
+      "width": 1280
+    },
+    {
+      "annotations": {
+        "checksum": "497dd2719e16c6d70e270da74874b94dad2532d3",
+        "compressed": 99171,
+        "uid": "5bcb8174ab01dcf5f038574b3008fd548e0800b5d2e59c24e4858058e92956003792889b1bfb107237e90a45cd836bcd1748f5eefda3220861f714bb8abd062c",
+        "uncompressed": 98307,
+        "url": "frisbee.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "67c5967fae30007aaa782b58fc2f43936b989f38",
+          "compressed": 160103961,
+          "pattern": "%08d.jpg",
+          "uid": "be3501bf72fe4e535266c788912c3536293d37e622483ef3add6bd67362c48787d1248de76d75997a9f23230ad059ba9f59d23de19002bc445d0da6cb9df86d5",
+          "uncompressed": 160093545,
+          "url": "../../../sequences/be3501bf72fe4e535266c788912c3536293d37e622483ef3add6bd67362c48787d1248de76d75997a9f23230ad059ba9f59d23de19002bc445d0da6cb9df86d5.zip"
+        }
+      },
+      "fps": "30",
+      "height": 1080,
+      "length": 248,
+      "name": "frisbee",
+      "preview": "frisbee.gif",
+      "thumbnail": "frisbee.png",
+      "width": 1920
+    },
+    {
+      "annotations": {
+        "checksum": "b3e450d0d1f1613f55f28feab54e9d01851b8674",
+        "compressed": 1623682,
+        "uid": "58a1bd6de6e5952f5fdfc1fca38413a7f8d5f4f17eaa9b35683df773ea9182641bb45c1bc5eb2421830a521a033f6a28a186e764ab04af4d80d65c15b8ebb376",
+        "uncompressed": 1622812,
+        "url": "girl.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "4da01409576a302be865cb136fce4686b24daede",
+          "compressed": 64001831,
+          "pattern": "%08d.jpg",
+          "uid": "ecf6ee5ba9203a343e1696690d37e2cc3a86dae225f2bdb0cc379451f283facf3d67420bc06fe5234fb963eda36c7933e82b2612d97981f71c7672516bba9db9",
+          "uncompressed": 63938831,
+          "url": "../../../sequences/ecf6ee5ba9203a343e1696690d37e2cc3a86dae225f2bdb0cc379451f283facf3d67420bc06fe5234fb963eda36c7933e82b2612d97981f71c7672516bba9db9.zip"
+        }
+      },
+      "fps": "30",
+      "height": 480,
+      "length": 1500,
+      "name": "girl",
+      "preview": "girl.gif",
+      "thumbnail": "girl.png",
+      "width": 640
+    },
+    {
+      "annotations": {
+        "checksum": "319f221cf517270fab3d37375b70ca6da3c0945c",
+        "compressed": 590879,
+        "uid": "16f4a7c478781b9b2dc1f2e8635aa46f122b34785e620f97a63ae76f83a83bb912ccae269ba3a9d6c501372237e6aada97a6b75509f1b7c8682f45b7223801ad",
+        "uncompressed": 589909,
+        "url": "graduate.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "3207ef9a00023364b9b5676b30ee62774fa5d168",
+          "compressed": 20004162,
+          "pattern": "%08d.jpg",
+          "uid": "ff20d8d89a29f4cc7ea4a18e50a5097d7b93fb12f5670abbca5b03ed811d0e19003def1dcb2c39089dbca8fb2fc06dc8acc017d3451b49d3aac6413604efe8d1",
+          "uncompressed": 19968714,
+          "url": "../../../sequences/ff20d8d89a29f4cc7ea4a18e50a5097d7b93fb12f5670abbca5b03ed811d0e19003def1dcb2c39089dbca8fb2fc06dc8acc017d3451b49d3aac6413604efe8d1.zip"
+        }
+      },
+      "fps": "30",
+      "height": 240,
+      "length": 844,
+      "name": "graduate",
+      "preview": "graduate.gif",
+      "thumbnail": "graduate.png",
+      "width": 560
+    },
+    {
+      "annotations": {
+        "checksum": "ddf7a0d3a7e3d01cc6f7a64d54d26d99c675e441",
+        "compressed": 327019,
+        "uid": "51797dd751f57271609fc6cb6550645648ff300242bd63dbfc8ac1f1b2cbd8ead927bac2f3d387e0574b342c7858db15cc4bf1760cb079df474ace47390680f5",
+        "uncompressed": 326149,
+        "url": "gymnastics1.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "c020c4417a5a64780fef8f6d51e7ef195ac84cd5",
+          "compressed": 23854567,
+          "pattern": "%08d.jpg",
+          "uid": "4023a484dfdfbbbc1f00900cb51465123c7a8c200cc276a86eff026ac2524041be2349c4da8a31f24e4b0d4ef60f31f31cf961c67d7b106be7bb915f1c5e6ee4",
+          "uncompressed": 23830753,
+          "url": "../../../sequences/4023a484dfdfbbbc1f00900cb51465123c7a8c200cc276a86eff026ac2524041be2349c4da8a31f24e4b0d4ef60f31f31cf961c67d7b106be7bb915f1c5e6ee4.zip"
+        }
+      },
+      "fps": "30",
+      "height": 180,
+      "length": 567,
+      "name": "gymnastics1",
+      "preview": "gymnastics1.gif",
+      "thumbnail": "gymnastics1.png",
+      "width": 320
+    },
+    {
+      "annotations": {
+        "checksum": "75a0271a6a60b1302f38ca28914cc4d6d2146d71",
+        "compressed": 343305,
+        "uid": "76c4ec6595f9a8e855302bb3b292b7776286731dac34fce83bc5ef074e7ab77c57e95659fbdfb193c37d858e0af3c9db13775fa5daf724e6a85d213e36949d24",
+        "uncompressed": 342435,
+        "url": "gymnastics2.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "43ebe344ee0cbd104718cc1426a2e10d93b8ec6c",
+          "compressed": 17496119,
+          "pattern": "%08d.jpg",
+          "uid": "b6bdd7503590000985f370c041a02c1b152ce3dffcc62552b0c2bdacd7c63aa5e92e6e4e64381ceb3d8c210391bad673af0925f62111364252a65e9357523646",
+          "uncompressed": 17486039,
+          "url": "../../../sequences/b6bdd7503590000985f370c041a02c1b152ce3dffcc62552b0c2bdacd7c63aa5e92e6e4e64381ceb3d8c210391bad673af0925f62111364252a65e9357523646.zip"
+        }
+      },
+      "fps": "30",
+      "height": 720,
+      "length": 240,
+      "name": "gymnastics2",
+      "preview": "gymnastics2.gif",
+      "thumbnail": "gymnastics2.png",
+      "width": 1280
+    },
+    {
+      "annotations": {
+        "checksum": "ce8e00ed28afec440058602f7abfea4052b87af2",
+        "compressed": 281505,
+        "uid": "f897ddd661ba20b95b0599c593980ef9169a552e3615e9c4c87427a4ad632852a44cc3939e9d6abf5e36ef7f2d2661325fa4aa1dfcd872cc24375252ad8ace9d",
+        "uncompressed": 280635,
+        "url": "gymnastics3.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "6aa0e1ba7b03f2f27e14e50083100caa12bfb685",
+          "compressed": 12847211,
+          "pattern": "%08d.jpg",
+          "uid": "cf0415da98cbbeadd738d9b4c276662db3c9b94fc99706cd2899542859eb6dd55110a12aa83d1ae7a649047303724d07265263ab67519df457843ed7c9e4b20e",
+          "uncompressed": 12842255,
+          "url": "../../../sequences/cf0415da98cbbeadd738d9b4c276662db3c9b94fc99706cd2899542859eb6dd55110a12aa83d1ae7a649047303724d07265263ab67519df457843ed7c9e4b20e.zip"
+        }
+      },
+      "fps": "30",
+      "height": 720,
+      "length": 118,
+      "name": "gymnastics3",
+      "preview": "gymnastics3.gif",
+      "thumbnail": "gymnastics3.png",
+      "width": 1280
+    },
+    {
+      "annotations": {
+        "checksum": "75efb97847097cef9e49f0f21d511c47281536b1",
+        "compressed": 94259,
+        "uid": "792803ff6c740ffb56a19ba60ef8c68c498328cf35b1189ebdfd2137f5df2652ef636dc24b3836667b39a587b1e2b5ce0e8c297c0e7db56a0bf3fb9a4b326cfd",
+        "uncompressed": 93389,
+        "url": "hand.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "1151529bc95651e3995e6951894cb741037fe0fe",
+          "compressed": 13352943,
+          "pattern": "%08d.jpg",
+          "uid": "5ab580edbea7ed8fffd53c1df943f1b6dff588df75927c7c7b8b70d4c7f97fce8d004d35d485936f9677880359c36277b1ab4f24789890e30d69de7bf1b3a047",
+          "uncompressed": 13341729,
+          "url": "../../../sequences/5ab580edbea7ed8fffd53c1df943f1b6dff588df75927c7c7b8b70d4c7f97fce8d004d35d485936f9677880359c36277b1ab4f24789890e30d69de7bf1b3a047.zip"
+        }
+      },
+      "fps": "30",
+      "height": 240,
+      "length": 267,
+      "name": "hand",
+      "preview": "hand.gif",
+      "thumbnail": "hand.png",
+      "width": 320
+    },
+    {
+      "annotations": {
+        "checksum": "4fb1def28d01f0c24edf36f2b4e6d58d07c52eea",
+        "compressed": 31844,
+        "uid": "280fa44e164dc26f6e761602f773888b2bef7d68648b4b96033d096077ecb9c40c4cb904297548fad42134cc4154fb786a206c575b7ca2d05ed22be93f361e19",
+        "uncompressed": 31080,
+        "url": "hand2.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "49956a89ecd7c1b13440ca84651a2d36e3b4f45f",
+          "compressed": 13423728,
+          "pattern": "%08d.jpg",
+          "uid": "7dda546368f3d567e05a57632d345376693a05e82ccffd11bbf86f6b9bd7018a003ebe9108171d81f53b00acf38679b80892c9d5a469c220fd953ab4179e7e99",
+          "uncompressed": 13417638,
+          "url": "../../../sequences/7dda546368f3d567e05a57632d345376693a05e82ccffd11bbf86f6b9bd7018a003ebe9108171d81f53b00acf38679b80892c9d5a469c220fd953ab4179e7e99.zip"
+        }
+      },
+      "fps": "30",
+      "height": 540,
+      "length": 145,
+      "name": "hand2",
+      "preview": "hand2.gif",
+      "thumbnail": "hand2.png",
+      "width": 960
+    },
+    {
+      "annotations": {
+        "checksum": "056b669ed0d0c040cfa19f62be211ff0b49e1cf9",
+        "compressed": 53164,
+        "uid": "0c8fb7f13cdc5f4e03e584ff8d3f3740f518d8eb527cb72c876fe9ba26396cff51eb0ea6bbbea6089cd381455ece17c81468cf5602dc4f13a6af686032c27889",
+        "uncompressed": 52294,
+        "url": "handball1.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "612b1ce8de51a13a0c9403c7a322e23f3101e985",
+          "compressed": 8555209,
+          "pattern": "%08d.jpg",
+          "uid": "c1caf93c7633a7e94104e4771806872f61e5febbf862ac524eb9c112fc0e50990107703e66bed411af68cda610a25b1e49cbf25db70e512ce2bb9778f2e95399",
+          "uncompressed": 8539375,
+          "url": "../../../sequences/c1caf93c7633a7e94104e4771806872f61e5febbf862ac524eb9c112fc0e50990107703e66bed411af68cda610a25b1e49cbf25db70e512ce2bb9778f2e95399.zip"
+        }
+      },
+      "fps": "30",
+      "height": 288,
+      "length": 377,
+      "name": "handball1",
+      "preview": "handball1.gif",
+      "thumbnail": "handball1.png",
+      "width": 384
+    },
+    {
+      "annotations": {
+        "checksum": "d73e6c8992c19fe6d6e6fbb9f077be05308041ec",
+        "compressed": 112703,
+        "uid": "7a3facf1e3440945376c31024f6552aaf2255160b3e19795c1e1188770bd304dc8cc24ff50159e16fe30440deefa5a3ffb9cabe5241b3978c5b03e584bc5531c",
+        "uncompressed": 111833,
+        "url": "handball2.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "c642d27d6d3ce5618172de7a4a84dcac3b11c977",
+          "compressed": 27643660,
+          "pattern": "%08d.jpg",
+          "uid": "02426f5707e8087f9ad6772af0915047f402e7d3677f172981b44b6f7d0cef417804c74550914f9102e7b709fdb6dfeac8f896e412b99c1409240144ce09744d",
+          "uncompressed": 27626776,
+          "url": "../../../sequences/02426f5707e8087f9ad6772af0915047f402e7d3677f172981b44b6f7d0cef417804c74550914f9102e7b709fdb6dfeac8f896e412b99c1409240144ce09744d.zip"
+        }
+      },
+      "fps": "30",
+      "height": 576,
+      "length": 402,
+      "name": "handball2",
+      "preview": "handball2.gif",
+      "thumbnail": "handball2.png",
+      "width": 768
+    },
+    {
+      "annotations": {
+        "checksum": "6246689b8f84a8ba3b71ba6967c154c8dc6e4865",
+        "compressed": 483098,
+        "uid": "b77e650ac04f7585e71e10c65447e91023db5f4fa4b334ae196fb4706314b35714b9cf4b50ac99f3aa3f534efe6d27875904bac4be7e4cecf31b495ef14c76b0",
+        "uncompressed": 482228,
+        "url": "helicopter.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "9fbd292893b3f336c84c8c472ac7475811f9cbae",
+          "compressed": 23227207,
+          "pattern": "%08d.jpg",
+          "uid": "1f2dd97163f1854aa0c378d6201fd6c10c0dc2f9a516a60ffd02427d06c635a4fbcd17acd281b11d07979d0ef0afb22c0f8753d1ace4242460d09553e495cdc6",
+          "uncompressed": 23197471,
+          "url": "../../../sequences/1f2dd97163f1854aa0c378d6201fd6c10c0dc2f9a516a60ffd02427d06c635a4fbcd17acd281b11d07979d0ef0afb22c0f8753d1ace4242460d09553e495cdc6.zip"
+        }
+      },
+      "fps": "30",
+      "height": 480,
+      "length": 708,
+      "name": "helicopter",
+      "preview": "helicopter.gif",
+      "thumbnail": "helicopter.png",
+      "width": 848
+    },
+    {
+      "annotations": {
+        "checksum": "cc44db0f41ee3240b766adad72ac07783cc54d0e",
+        "compressed": 913085,
+        "uid": "2578eadd04698a1367e2b2363dd8b2072d0bb4207e04be2bd0b0a69573b849986ac19abf54f73dcd4a7c009ef681be1c513c5d5ffc096f7a336151dc1cb3056e",
+        "uncompressed": 912215,
+        "url": "iceskater1.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "baa20500640840a9fd4945319d729ab035715214",
+          "compressed": 17354993,
+          "pattern": "%08d.jpg",
+          "uid": "7f6c4c58031dd571c15567aa65a3263e11480f0bac4b67056843f8d17c73f766fd085378ce2f5e40325054b2c8075f647241707f665315c7aac3c27db1f04bdc",
+          "uncompressed": 17327231,
+          "url": "../../../sequences/7f6c4c58031dd571c15567aa65a3263e11480f0bac4b67056843f8d17c73f766fd085378ce2f5e40325054b2c8075f647241707f665315c7aac3c27db1f04bdc.zip"
+        }
+      },
+      "fps": "30",
+      "height": 270,
+      "length": 661,
+      "name": "iceskater1",
+      "preview": "iceskater1.gif",
+      "thumbnail": "iceskater1.png",
+      "width": 480
+    },
+    {
+      "annotations": {
+        "checksum": "dd16c1be1c52cdf7c9294bf59c8c7ba4c7a92c15",
+        "compressed": 1049799,
+        "uid": "eadfff25740f82b9b782b4d648d5872fa9dc11d550cb40629a5a79a1e99ff277876a10eda52bf31bb43103569b6ef0757868b01c0c7c55c75c44180d1156b803",
+        "uncompressed": 1048929,
+        "url": "iceskater2.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "675486133ef7b5f96d5ce7c8c26c9c1740b11c74",
+          "compressed": 36067719,
+          "pattern": "%08d.jpg",
+          "uid": "86412760b282ab24d1759bb8ab2a0588f89823cab909016f9c00e21b1a39205df97425d10f7036b0ce888e7e0320bdbb8d22681539d2cd87151ca65a19eaa819",
+          "uncompressed": 36038025,
+          "url": "../../../sequences/86412760b282ab24d1759bb8ab2a0588f89823cab909016f9c00e21b1a39205df97425d10f7036b0ce888e7e0320bdbb8d22681539d2cd87151ca65a19eaa819.zip"
+        }
+      },
+      "fps": "30",
+      "height": 352,
+      "length": 707,
+      "name": "iceskater2",
+      "preview": "iceskater2.gif",
+      "thumbnail": "iceskater2.png",
+      "width": 640
+    },
+    {
+      "annotations": {
+        "checksum": "84d3df34cadf4366624ba23b3e710204cbe83e7b",
+        "compressed": 239007,
+        "uid": "2e748c19d24e95c0f4a3b3efa800cc780ac72675996ef73bed56879eed757439d00586d9e840418059e2cee3381a7b27c3378c544b9fa53691c7325315be8d5f",
+        "uncompressed": 238243,
+        "url": "kangaroo.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "31d56208bc55da4dc8b215cb810abf7af279caa2",
+          "compressed": 3288563,
+          "pattern": "%08d.jpg",
+          "uid": "9c13c5f52b1527113bd1248056d84a86dfefea23652153541ae6ad8c7e7899b499fd2f4c6e3839638e19dc4ce70cce6f4ecd62050e651107736382099a8da13f",
+          "uncompressed": 3284909,
+          "url": "../../../sequences/9c13c5f52b1527113bd1248056d84a86dfefea23652153541ae6ad8c7e7899b499fd2f4c6e3839638e19dc4ce70cce6f4ecd62050e651107736382099a8da13f.zip"
+        }
+      },
+      "fps": "30",
+      "height": 720,
+      "length": 87,
+      "name": "kangaroo",
+      "preview": "kangaroo.gif",
+      "thumbnail": "kangaroo.png",
+      "width": 1280
+    },
+    {
+      "annotations": {
+        "checksum": "fc9fd277017969ff7e1d88545894910a93c1464c",
+        "compressed": 96547,
+        "uid": "d5f10fa5e0f43a2de5ae27df400f6af1886f94bf26cc67a6ebe9f13092afb1c7145b415cd68afe6cab1bbeae49797c0d3e20b65cd0f2264a81dcfbf0e40d0852",
+        "uncompressed": 95783,
+        "url": "lamb.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "1f337643d90605b23ed44a8092ea1d641fcc03f7",
+          "compressed": 13182179,
+          "pattern": "%08d.jpg",
+          "uid": "659d429eed4f572a161523153710e02f593dddd0cc5cc29a63bd042dc214fd785b09a743c85db1be616435d1af14a9c43f0252a3e160fc19b8cc1e5011b8108d",
+          "uncompressed": 13177979,
+          "url": "../../../sequences/659d429eed4f572a161523153710e02f593dddd0cc5cc29a63bd042dc214fd785b09a743c85db1be616435d1af14a9c43f0252a3e160fc19b8cc1e5011b8108d.zip"
+        }
+      },
+      "fps": "30",
+      "height": 540,
+      "length": 100,
+      "name": "lamb",
+      "preview": "lamb.gif",
+      "thumbnail": "lamb.png",
+      "width": 960
+    },
+    {
+      "annotations": {
+        "checksum": "68236a39b31f964dd33f3ce0f496a15e03ee6a22",
+        "compressed": 17807,
+        "uid": "e3afcca348274eb8eea6c1193793513575b08158f5ca4b307d76361e1b8eb037ae10087df7b0920b2ca450b4b23e9d59d30b6f051de9273465073a3a609d49b7",
+        "uncompressed": 16937,
+        "url": "leaves.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "19158dc77c2db1a570f26f8799b4b91a1edcb61a",
+          "compressed": 6870784,
+          "pattern": "%08d.jpg",
+          "uid": "129ce085e7bce0ece5fc6443b1fb94eeddb68b47af09ad84ecbbafef57209d9790069f5a8f4ef28c4424d7355c7c412831c2b9c4877c474e0ff0234e7197591e",
+          "uncompressed": 6868138,
+          "url": "../../../sequences/129ce085e7bce0ece5fc6443b1fb94eeddb68b47af09ad84ecbbafef57209d9790069f5a8f4ef28c4424d7355c7c412831c2b9c4877c474e0ff0234e7197591e.zip"
+        }
+      },
+      "fps": "30",
+      "height": 720,
+      "length": 63,
+      "name": "leaves",
+      "preview": "leaves.gif",
+      "thumbnail": "leaves.png",
+      "width": 1280
+    },
+    {
+      "annotations": {
+        "checksum": "fea5651ae8b050c41554fd258cffa560957927fe",
+        "compressed": 13281,
+        "uid": "6b2e1a62ec5c87b21fba6b7338cf2421d8c49fcc041977a43f8756d3c2b667c00abd9d6b2483cf40a3e11c18906191d5d3f63835873dbff5f82d1e4477dfab88",
+        "uncompressed": 12517,
+        "url": "marathon.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "e0116fcae2297f89d56c2b2eb6ff6577a18c1b38",
+          "compressed": 11360020,
+          "pattern": "%08d.jpg",
+          "uid": "6e2075d49342dfa0fb981affe8116188a1422511cf0ae4364130159d036bbf10a374d6c60ebda43608cfca5f7c5a4bdf4d34c8099dff35b8f656373496338cf2",
+          "uncompressed": 11355778,
+          "url": "../../../sequences/6e2075d49342dfa0fb981affe8116188a1422511cf0ae4364130159d036bbf10a374d6c60ebda43608cfca5f7c5a4bdf4d34c8099dff35b8f656373496338cf2.zip"
+        }
+      },
+      "fps": "30",
+      "height": 540,
+      "length": 101,
+      "name": "marathon",
+      "preview": "marathon.gif",
+      "thumbnail": "marathon.png",
+      "width": 960
+    },
+    {
+      "annotations": {
+        "checksum": "a8319b6192b92884c37db57df8dd6464bb727268",
+        "compressed": 43312,
+        "uid": "85a2818e35b481e54c0fdcb3cd2c8df12b92d068e2e03dc0d5e99a61d740435796e6f8dfe3d6f976bca98917e7b634f8d0177438a982e2d0280c42d13d9ac5f8",
+        "uncompressed": 42552,
+        "url": "matrix.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "eb19ea5b2b597458cb722094c03733985b974d13",
+          "compressed": 7018945,
+          "pattern": "%08d.jpg",
+          "uid": "28a158118357685d8a4486e033f3e56a70322cf8ce6a081da983d94aefee9385ce24056090751f08bc04b5f702465be92d901e86a7ce44d31ad395dfce44ced1",
+          "uncompressed": 7014745,
+          "url": "../../../sequences/28a158118357685d8a4486e033f3e56a70322cf8ce6a081da983d94aefee9385ce24056090751f08bc04b5f702465be92d901e86a7ce44d31ad395dfce44ced1.zip"
+        }
+      },
+      "fps": "30",
+      "height": 336,
+      "length": 100,
+      "name": "matrix",
+      "preview": "matrix.gif",
+      "thumbnail": "matrix.png",
+      "width": 800
+    },
+    {
+      "annotations": {
+        "checksum": "dc276eabe5167b5074ca7454efa229f78fc3a449",
+        "compressed": 68461,
+        "uid": "628edefdab0158aed9306a1eda87c4b0ad4c68a3e7f0764f0364a5ef4858907ab5e7beffad3f0581cee6952e15384cd17e260c9017b27df55845ba56c125184e",
+        "uncompressed": 67697,
+        "url": "monkey.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "dfc28bd2ac8ee80c0d277c86c7e02504d5d60fc3",
+          "compressed": 16463106,
+          "pattern": "%08d.jpg",
+          "uid": "dbc28fcd87d6f2e7a07b8ce3885782b667294b5d37ac570f57de183f99f584149e886178284281f5fe8c543e9dca20fc19d501f5aa15c230f90e498306ecd8cd",
+          "uncompressed": 16458864,
+          "url": "../../../sequences/dbc28fcd87d6f2e7a07b8ce3885782b667294b5d37ac570f57de183f99f584149e886178284281f5fe8c543e9dca20fc19d501f5aa15c230f90e498306ecd8cd.zip"
+        }
+      },
+      "fps": "30",
+      "height": 540,
+      "length": 101,
+      "name": "monkey",
+      "preview": "monkey.gif",
+      "thumbnail": "monkey.png",
+      "width": 960
+    },
+    {
+      "annotations": {
+        "checksum": "df58c45efa1d0cd007102cb44e7541461bf6a9d2",
+        "compressed": 131343,
+        "uid": "3d3b0129b2d6a52cf13fa6d614449398a9897ea0e183cbd9d5a5d6099eeceee992b3c35a2f2810fd978449ed935fa5324cdebcd829fbdaf996754ba67a71b5e4",
+        "uncompressed": 130473,
+        "url": "motocross1.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "7482ccd2f3b8cd966d9bea44bae0c0074e0b3808",
+          "compressed": 6583831,
+          "pattern": "%08d.jpg",
+          "uid": "b5008eeaaa25fa203ae0643a3f39720112a5bdf7f89777336ed85c1aaa1590e8b446cbce7a99165554e2ad3ccf495988b0495bbe283ea24f120611d09ddea710",
+          "uncompressed": 6576943,
+          "url": "../../../sequences/b5008eeaaa25fa203ae0643a3f39720112a5bdf7f89777336ed85c1aaa1590e8b446cbce7a99165554e2ad3ccf495988b0495bbe283ea24f120611d09ddea710.zip"
+        }
+      },
+      "fps": "30",
+      "height": 360,
+      "length": 164,
+      "name": "motocross1",
+      "preview": "motocross1.gif",
+      "thumbnail": "motocross1.png",
+      "width": 640
+    },
+    {
+      "annotations": {
+        "checksum": "83d9fcdc2bb61906b083943b0201f4ca79a4127e",
+        "compressed": 883999,
+        "uid": "06166307ff913d094aac61e111e2b8737147c567426d4031224bccfea93196a92199c5e814115f9efb14bbdc2b5512f39a3bed13b397f87914de354ce3e648c7",
+        "uncompressed": 883129,
+        "url": "nature.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "41cf4f98af042eb1e9298ae6fc621c3fc4ca7cca",
+          "compressed": 69476923,
+          "pattern": "%08d.jpg",
+          "uid": "ef7ad8e6eddd2c1202eb8ae09c4a79e3f7f934e1e3d5c669d192d584aeb717cdc35b3e4fd487a9c7699db29169629daa99d3dbc0c3a6600380cc2a5a986c0487",
+          "uncompressed": 69434965,
+          "url": "../../../sequences/ef7ad8e6eddd2c1202eb8ae09c4a79e3f7f934e1e3d5c669d192d584aeb717cdc35b3e4fd487a9c7699db29169629daa99d3dbc0c3a6600380cc2a5a986c0487.zip"
+        }
+      },
+      "fps": "30",
+      "height": 540,
+      "length": 999,
+      "name": "nature",
+      "preview": "nature.gif",
+      "thumbnail": "nature.png",
+      "width": 960
+    },
+    {
+      "annotations": {
+        "checksum": "0820a6e5985353c65e6ec4065fa52c354a16a2a1",
+        "compressed": 72970,
+        "uid": "39e04e24561a5efdff0b8bc041d3138575799833fb65cf93d57902db856a6578ce9dc7b3b7120d8ec2c4616008412abdb1e51a42479f15c4b75d8fe25630a34e",
+        "uncompressed": 72206,
+        "url": "polo.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "b8e8d256111ba6c3ae2d7273819e16159e4ef3a8",
+          "compressed": 9878738,
+          "pattern": "%08d.jpg",
+          "uid": "acc3aeade6fb699adb7ca1c28866dd00f06d8fcd02c4cff17539a3c9d718d38976f637f4499a8763ae65f93d71fcd37494747bec7bbb8955a469b9f3fd9783aa",
+          "uncompressed": 9874076,
+          "url": "../../../sequences/acc3aeade6fb699adb7ca1c28866dd00f06d8fcd02c4cff17539a3c9d718d38976f637f4499a8763ae65f93d71fcd37494747bec7bbb8955a469b9f3fd9783aa.zip"
+        }
+      },
+      "fps": "30",
+      "height": 540,
+      "length": 111,
+      "name": "polo",
+      "preview": "polo.gif",
+      "thumbnail": "polo.png",
+      "width": 960
+    },
+    {
+      "annotations": {
+        "checksum": "7daad35d3d232fe0164f9d377a5de88289f7ae8a",
+        "compressed": 49257,
+        "uid": "04c0baceb8e146753443e55f030f9c5403dbf03fec4064d49dbabf89017b70a3fc5e108fb5e5f12ff828fd10b66eadeddec5855d40476c8d417f9db9d582b9ec",
+        "uncompressed": 48387,
+        "url": "rabbit.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "f1a9807adc447bdd685d9a489fe227f666470645",
+          "compressed": 4960900,
+          "pattern": "%08d.jpg",
+          "uid": "6dbc0accfddd0de401ee815d8455bc547a1fa543579a7337c9b7318ee12da530cd0df4bf1e615c6949dc4bfd92829c73650196429292311e4063302a4f193acb",
+          "uncompressed": 4954264,
+          "url": "../../../sequences/6dbc0accfddd0de401ee815d8455bc547a1fa543579a7337c9b7318ee12da530cd0df4bf1e615c6949dc4bfd92829c73650196429292311e4063302a4f193acb.zip"
+        }
+      },
+      "fps": "30",
+      "height": 480,
+      "length": 158,
+      "name": "rabbit",
+      "preview": "rabbit.gif",
+      "thumbnail": "rabbit.png",
+      "width": 640
+    },
+    {
+      "annotations": {
+        "checksum": "30d18dd27ed9a019d16f3b5d882980cca21c145e",
+        "compressed": 70294,
+        "uid": "338711456c07bf0614f3baa679ed68b9a6a0bb8e4df7b5210382b752e290d4942d944ea601c2d2b9d734d6adfc713659f7378fef6e4162a54371c2ddfd6afa26",
+        "uncompressed": 69530,
+        "url": "rabbit2.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "7c1be52dadbbcbdba76adaa8616c5cb67f5f436a",
+          "compressed": 13762159,
+          "pattern": "%08d.jpg",
+          "uid": "2b019273c96b7ce512ebad03c060bf92834d2630da93053a598c3685b70f43c1e4b5f6dc54a7346bdd107be1c63749e56c56baccf7037f9c2a8b0e2ed4976d66",
+          "uncompressed": 13757959,
+          "url": "../../../sequences/2b019273c96b7ce512ebad03c060bf92834d2630da93053a598c3685b70f43c1e4b5f6dc54a7346bdd107be1c63749e56c56baccf7037f9c2a8b0e2ed4976d66.zip"
+        }
+      },
+      "fps": "30",
+      "height": 540,
+      "length": 100,
+      "name": "rabbit2",
+      "preview": "rabbit2.gif",
+      "thumbnail": "rabbit2.png",
+      "width": 960
+    },
+    {
+      "annotations": {
+        "checksum": "b359cfe04b69dd9638380f8d9d499a366590a767",
+        "compressed": 14007,
+        "uid": "70b398a8ade5dd8cc4a3f8fd2cbe7ab370574dd6b07473491c278a2666f34b82ce44851ce27a601307580f3c7647e4b7a14ee7f5b91a2493493a9965a9021355",
+        "uncompressed": 13243,
+        "url": "rowing.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "e7411fb2b10fc892b19be6aa1e8f3c14d5cb630d",
+          "compressed": 7648824,
+          "pattern": "%08d.jpg",
+          "uid": "7c18dfd6263b74aa1546f2b8b9ee641458a7d42adb299cce2ec3a5ad00b760ecff41601a7c632b3c4b01e503039cf6a5655c90b3462ec8293a57a694b932fa29",
+          "uncompressed": 7644582,
+          "url": "../../../sequences/7c18dfd6263b74aa1546f2b8b9ee641458a7d42adb299cce2ec3a5ad00b760ecff41601a7c632b3c4b01e503039cf6a5655c90b3462ec8293a57a694b932fa29.zip"
+        }
+      },
+      "fps": "30",
+      "height": 540,
+      "length": 101,
+      "name": "rowing",
+      "preview": "rowing.gif",
+      "thumbnail": "rowing.png",
+      "width": 960
+    },
+    {
+      "annotations": {
+        "checksum": "86e087cad28540d12f763539437443d226d31745",
+        "compressed": 195755,
+        "uid": "c1fb9ef4c9861ec9e0a09101e090f76b6deb49edb43de22dc480d1cf63daa8c60074fe14914908f3fd3a3929f68ca06524b611525a0f07d801a65fe17670bf09",
+        "uncompressed": 194885,
+        "url": "shaking.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "3411b1b341cfc930b9d35050a0e2a14d917d8058",
+          "compressed": 21678632,
+          "pattern": "%08d.jpg",
+          "uid": "932859877ab68a0da7e3ab76e8cc5d2961f666634d294a073a83820212e7f91c524e8238f3442ca71ec2c8a07934fb71685d76b054097e747121c9fc67d761d4",
+          "uncompressed": 21663302,
+          "url": "../../../sequences/932859877ab68a0da7e3ab76e8cc5d2961f666634d294a073a83820212e7f91c524e8238f3442ca71ec2c8a07934fb71685d76b054097e747121c9fc67d761d4.zip"
+        }
+      },
+      "fps": "30",
+      "height": 352,
+      "length": 365,
+      "name": "shaking",
+      "preview": "shaking.gif",
+      "thumbnail": "shaking.png",
+      "width": 624
+    },
+    {
+      "annotations": {
+        "checksum": "65933d257d3cc5e128c05e7523cb152cf7cc0018",
+        "compressed": 630148,
+        "uid": "453dc5545dcabca9e3f7b907cddf0cae153cc229482f8a48d1652f7c207fdd091c45cca6f7035b07c108258fd66bc58d27c52e6b2601e6b0f5fa97244ded6f37",
+        "uncompressed": 629278,
+        "url": "singer2.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "930bc28981dc7bdd6061bfdc5ecb5de35e5d9cce",
+          "compressed": 23559548,
+          "pattern": "%08d.jpg",
+          "uid": "9a9622961dfe6b99080eb18dce90e67197d57a9f430ca91ec6c3a719371c6d4bbd1105e70e8e42116f34bf1a711383aa2d68cb1934c15d09c75c7b1f6c6ed57b",
+          "uncompressed": 23544176,
+          "url": "../../../sequences/9a9622961dfe6b99080eb18dce90e67197d57a9f430ca91ec6c3a719371c6d4bbd1105e70e8e42116f34bf1a711383aa2d68cb1934c15d09c75c7b1f6c6ed57b.zip"
+        }
+      },
+      "fps": "30",
+      "height": 352,
+      "length": 366,
+      "name": "singer2",
+      "preview": "singer2.gif",
+      "thumbnail": "singer2.png",
+      "width": 624
+    },
+    {
+      "annotations": {
+        "checksum": "5349962eea856ca6c7e4210c7fe2b51f31331872",
+        "compressed": 211432,
+        "uid": "2aad37ca2ec09740fce80eff654e11777bc0c71a8ec21bc24c172f178384d331c3d99c42d5d1dc68e738d2f14aa5324dcc967a9378080f5ee2b8bc8732083777",
+        "uncompressed": 210562,
+        "url": "singer3.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "6bdb86e423afcc745de073c7064cb826230a6c37",
+          "compressed": 4314287,
+          "pattern": "%08d.jpg",
+          "uid": "05e8bc6789516bbc2012f9c80449fdeb2eb7b1d7736079845fe07fcb77d60ddfdb68f6582d9e3dd6756c87392328182fde1af1df2ae1c5eedb3c76088a687560",
+          "uncompressed": 4308785,
+          "url": "../../../sequences/05e8bc6789516bbc2012f9c80449fdeb2eb7b1d7736079845fe07fcb77d60ddfdb68f6582d9e3dd6756c87392328182fde1af1df2ae1c5eedb3c76088a687560.zip"
+        }
+      },
+      "fps": "30",
+      "height": 480,
+      "length": 131,
+      "name": "singer3",
+      "preview": "singer3.gif",
+      "thumbnail": "singer3.png",
+      "width": 854
+    },
+    {
+      "annotations": {
+        "checksum": "320df428b6ac6cc826109d1149bf56df86978a29",
+        "compressed": 226227,
+        "uid": "b3efdc272e8f4433e19370c197a011f322416d9388b23cd71d8cf80d74744f1c497e35ea75871b34c8616705e07008400c3f50566523916899d82b6b91a486c5",
+        "uncompressed": 225463,
+        "url": "snake.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "fb3ca08ccb972af4af89f3fd96475fe02f65f591",
+          "compressed": 7521819,
+          "pattern": "%08d.jpg",
+          "uid": "d0192e0afdb4529d1a183ff616aabe907940c33513ca60156b4174329d857109d3484449d98d5559c2a7cf169d84734fb61d883ce5fffe7ea73d1b06d4618f8a",
+          "uncompressed": 7517577,
+          "url": "../../../sequences/d0192e0afdb4529d1a183ff616aabe907940c33513ca60156b4174329d857109d3484449d98d5559c2a7cf169d84734fb61d883ce5fffe7ea73d1b06d4618f8a.zip"
+        }
+      },
+      "fps": "30",
+      "height": 1080,
+      "length": 101,
+      "name": "snake",
+      "preview": "snake.gif",
+      "thumbnail": "snake.png",
+      "width": 1920
+    },
+    {
+      "annotations": {
+        "checksum": "883f05708b73057a0f224ec82fc926cb790f39cd",
+        "compressed": 166605,
+        "uid": "bc594e3a58e8317cd600c338acbf42a33da31a7b4bdf5e6c169e27bf1ca03d6aa0621393b3c327760ca4fc0c006211cb4c39c982ac75ee060cb08b8bbceaf377",
+        "uncompressed": 165735,
+        "url": "soccer1.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "b69a4441a612e68f886ea3e40ac6049ca859347d",
+          "compressed": 30840441,
+          "pattern": "%08d.jpg",
+          "uid": "eb3aefdbe1e5af9e3faa523d555ba551b11e73ab51ca9315a19d6e8e51eec52c2c97e64985728f3dd0def3da2141baf4462b9d63da529767f79a408f74a5f82e",
+          "uncompressed": 30823977,
+          "url": "../../../sequences/eb3aefdbe1e5af9e3faa523d555ba551b11e73ab51ca9315a19d6e8e51eec52c2c97e64985728f3dd0def3da2141baf4462b9d63da529767f79a408f74a5f82e.zip"
+        }
+      },
+      "fps": "30",
+      "height": 360,
+      "length": 392,
+      "name": "soccer1",
+      "preview": "soccer1.gif",
+      "thumbnail": "soccer1.png",
+      "width": 640
+    },
+    {
+      "annotations": {
+        "checksum": "8a9b03a89552573b5f4f55204fe0fd73d9ef038c",
+        "compressed": 45233,
+        "uid": "52768c3eb1912f69c3144d94bc7373379297472b9becdde1bd024a2df61873bf455bb254653f66d7b5e23cc8f8b6f3ad9513da588c0cd0545bfdc236cf12099f",
+        "uncompressed": 44363,
+        "url": "soccer2.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "043c444663ddecfbe71b7c90160ddc6b2bd2ee65",
+          "compressed": 10911272,
+          "pattern": "%08d.jpg",
+          "uid": "aa2549ae321f7f9bddd4154aafbd1093cad5bb1b08da49134aaa4d42e6e1c0eb3b93b75f1134d70aa6ad96d7894d2cc9bfe8d4c6f0d74b68c77dd702341121cc",
+          "uncompressed": 10905854,
+          "url": "../../../sequences/aa2549ae321f7f9bddd4154aafbd1093cad5bb1b08da49134aaa4d42e6e1c0eb3b93b75f1134d70aa6ad96d7894d2cc9bfe8d4c6f0d74b68c77dd702341121cc.zip"
+        }
+      },
+      "fps": "30",
+      "height": 681,
+      "length": 129,
+      "name": "soccer2",
+      "preview": "soccer2.gif",
+      "thumbnail": "soccer2.png",
+      "width": 1201
+    },
+    {
+      "annotations": {
+        "checksum": "72d5a8ea9a32f1210622f4630b4af000d2be759f",
+        "compressed": 76864,
+        "uid": "50a7a8e245fb45bd8994c2a1a6e324218fbfa10682e15c9d3c68222d2b394016b91e95b5332dff452404016853f583210aac9588328a8a7b080bf1d803ca7b3d",
+        "uncompressed": 75994,
+        "url": "soldier.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "ee8578b8d6a86eaf65d0cb47ec953bdd2ed592be",
+          "compressed": 28510065,
+          "pattern": "%08d.jpg",
+          "uid": "023a99c631111a770383c9fb7fa7b1a5e87d9d79f8fb670877a27d3cb624f14ca9094eec8b466f2a68d9a9b079ce7fb0406bc43fe56992708c91f3422cfabf45",
+          "uncompressed": 28504269,
+          "url": "../../../sequences/023a99c631111a770383c9fb7fa7b1a5e87d9d79f8fb670877a27d3cb624f14ca9094eec8b466f2a68d9a9b079ce7fb0406bc43fe56992708c91f3422cfabf45.zip"
+        }
+      },
+      "fps": "30",
+      "height": 720,
+      "length": 138,
+      "name": "soldier",
+      "preview": "soldier.gif",
+      "thumbnail": "soldier.png",
+      "width": 1280
+    },
+    {
+      "annotations": {
+        "checksum": "3b72bdb85b14bccf8b0a69ded9cbe58f3cf1e38c",
+        "compressed": 51297,
+        "uid": "553caff398442d39cdd61efd8cbdc6855611424bd62466314ddd2e876e68cc01ddf75dbd03977fb6f31997de7efce5eefe31eef49ea23d0d92ca5028b4f2d6f1",
+        "uncompressed": 50533,
+        "url": "surfing.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "935e774e71f794d89267625701c0eecf6d975c49",
+          "compressed": 10807350,
+          "pattern": "%08d.jpg",
+          "uid": "043a1bbbd1644a7aaaaab95e189f9561ca48a4a9eae94bf7005c59cf36c6f8c3b2f4e9082a862188e91a3274370d6a14a1a0257fdc4419bb27b93ac02aa0ca0c",
+          "uncompressed": 10802310,
+          "url": "../../../sequences/043a1bbbd1644a7aaaaab95e189f9561ca48a4a9eae94bf7005c59cf36c6f8c3b2f4e9082a862188e91a3274370d6a14a1a0257fdc4419bb27b93ac02aa0ca0c.zip"
+        }
+      },
+      "fps": "30",
+      "height": 540,
+      "length": 120,
+      "name": "surfing",
+      "preview": "surfing.gif",
+      "thumbnail": "surfing.png",
+      "width": 960
+    },
+    {
+      "annotations": {
+        "checksum": "842a64956dcec2907afcfcf61f6d79341f3d70d0",
+        "compressed": 130619,
+        "uid": "1f19db0d2883d34806622485ef612eab963ee4a095d8dc81172bc9e4010623148681078f298bc4b2fa636f36b1c870bb4d0742c339d61882de570cb7ebf24e6a",
+        "uncompressed": 129855,
+        "url": "tennis.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "41bf1ba4b37f99e96eb8681287b169483536d3f1",
+          "compressed": 18658912,
+          "pattern": "%08d.jpg",
+          "uid": "e88c03f15847753b8197c9786b0dc5f22fb1106160a3aa77c003e7894f33c778b6d72e61d87cb27a59cf823265d72ac509c3c5a801e2568d76e08c470f71031f",
+          "uncompressed": 18649966,
+          "url": "../../../sequences/e88c03f15847753b8197c9786b0dc5f22fb1106160a3aa77c003e7894f33c778b6d72e61d87cb27a59cf823265d72ac509c3c5a801e2568d76e08c470f71031f.zip"
+        }
+      },
+      "fps": "30",
+      "height": 540,
+      "length": 213,
+      "name": "tennis",
+      "preview": "tennis.gif",
+      "thumbnail": "tennis.png",
+      "width": 960
+    },
+    {
+      "annotations": {
+        "checksum": "8549c9c4112fdc1eeb9ec06cedf6bde03ed3ee53",
+        "compressed": 200086,
+        "uid": "69a13c8a96a1de4beb3c9e787ddcce119317308271494c23e539aaea152af2895a9bef3262c583a71687ba748bac10240f71a14a450a439ca13b5e633db7b701",
+        "uncompressed": 199216,
+        "url": "tiger.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "6b406cfcf52df407e0e90cff40baaa29685ed763",
+          "compressed": 32173062,
+          "pattern": "%08d.jpg",
+          "uid": "3b6b6a1c01b19ffd7a46e1b52fb239217b39c0bfa698ad516106f2573d5b0c8d7be83d328d6c8ce1405f8be7d74ac048fba2e7cd663dbc2ac4df89f6d85ce7fc",
+          "uncompressed": 32157732,
+          "url": "../../../sequences/3b6b6a1c01b19ffd7a46e1b52fb239217b39c0bfa698ad516106f2573d5b0c8d7be83d328d6c8ce1405f8be7d74ac048fba2e7cd663dbc2ac4df89f6d85ce7fc.zip"
+        }
+      },
+      "fps": "30",
+      "height": 480,
+      "length": 365,
+      "name": "tiger",
+      "preview": "tiger.gif",
+      "thumbnail": "tiger.png",
+      "width": 640
+    },
+    {
+      "annotations": {
+        "checksum": "43a4b0a2a8dac1ce73c6da43bb842646b3dc9c52",
+        "compressed": 48677,
+        "uid": "64abf309ac6bd22b944e71852729936b4532f386f3cb2ef700cc29b6d3dbd45224ed4f65fa2ca74abff344db71789075da402c1bba71353671f5b2c54f01742a",
+        "uncompressed": 47913,
+        "url": "wheel.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "cd15b66ca6aca833d7775f05c72eeead1cb217b7",
+          "compressed": 6894815,
+          "pattern": "%08d.jpg",
+          "uid": "951c809ad03eea8fd41839666b84cb6ba7f7f74c77863ce61aca56e912fe806560bce21f3ac11f0f8592caa02044ff97e064fafb3c51fd0b75f8eefc02aeadb2",
+          "uncompressed": 6890573,
+          "url": "../../../sequences/951c809ad03eea8fd41839666b84cb6ba7f7f74c77863ce61aca56e912fe806560bce21f3ac11f0f8592caa02044ff97e064fafb3c51fd0b75f8eefc02aeadb2.zip"
+        }
+      },
+      "fps": "30",
+      "height": 540,
+      "length": 101,
+      "name": "wheel",
+      "preview": "wheel.gif",
+      "thumbnail": "wheel.png",
+      "width": 960
+    },
+    {
+      "annotations": {
+        "checksum": "b85ea80c6d79231bee5f32e19ab6a94abe9a6401",
+        "compressed": 110301,
+        "uid": "3b5f86f539a8eb83b3e7f2201936ad12d8db79d11af2dbca55454bf237ac274667d66e2d0e88a00303abb01f7420ab835fee7338c96dc4122a765cec1b46110a",
+        "uncompressed": 109431,
+        "url": "wiper.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "a1207f0edd3d184ed568091d75773a657d7aa553",
+          "compressed": 6668887,
+          "pattern": "%08d.jpg",
+          "uid": "6311f7b051c31083c4d91948f52e4f161b13515c35006fa2f6c994b045eebc6f76ad6be24136fed005f0ac454442bb52429a751ee16af48ec88196efc4031e4c",
+          "uncompressed": 6654565,
+          "url": "../../../sequences/6311f7b051c31083c4d91948f52e4f161b13515c35006fa2f6c994b045eebc6f76ad6be24136fed005f0ac454442bb52429a751ee16af48ec88196efc4031e4c.zip"
+        }
+      },
+      "fps": "30",
+      "height": 480,
+      "length": 341,
+      "name": "wiper",
+      "preview": "wiper.gif",
+      "thumbnail": "wiper.png",
+      "width": 640
+    },
+    {
+      "annotations": {
+        "checksum": "88fe07e4d98459302d5f4583e19e8148db93420e",
+        "compressed": 138579,
+        "uid": "6a8218fd496a260fae0a605b5b4c73929a092fc077a47aaeab80f83e2ebdaf9faa61e32b69c2b50fa4012fd070f69d4308a94b16c0ace65afd26ee61237c3a1c",
+        "uncompressed": 137815,
+        "url": "zebrafish1.zip"
+      },
+      "channels": {
+        "color": {
+          "checksum": "70c0dc0a0252f24b406eca410816d40bf2bc81d2",
+          "compressed": 41781448,
+          "pattern": "%08d.jpg",
+          "uid": "77028a6105041ca4a6af0c7c24e235172911d5f0d2d50395d2670544f94935de38d7018711595fd47f0e508012981e9fe980d3dec6fda66089e3d6cb59741f65",
+          "uncompressed": 41764648,
+          "url": "../../../sequences/77028a6105041ca4a6af0c7c24e235172911d5f0d2d50395d2670544f94935de38d7018711595fd47f0e508012981e9fe980d3dec6fda66089e3d6cb59741f65.zip"
+        }
+      },
+      "fps": "30",
+      "height": 1080,
+      "length": 400,
+      "name": "zebrafish1",
+      "preview": "zebrafish1.gif",
+      "thumbnail": "zebrafish1.png",
+      "width": 1920
+    }
+  ],
+  "timestamp": "2022-03-18 12:43:26.312595"
+}
