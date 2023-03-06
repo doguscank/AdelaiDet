@@ -92,6 +92,8 @@ CLASSES = (
 
 
 def most_frequent(List):
+    if len(List) == 0:
+        return ""
     return max(set(List), key=List.count)
 
 
@@ -157,7 +159,7 @@ def create_masked_video(images, masks, output_file, fps, dataset_name):
     out = cv2.VideoWriter(output_file, fourcc, fps, (width, height))
 
     masked_detections_dir = os.path.join(
-        f"results", "{dataset_name}", "masked_detections"
+        "results", f"{dataset_name}", "masked_detections"
     )
 
     for i in range(len(images)):
@@ -188,16 +190,16 @@ def dataset_evaluator(vot22_dataset_name, min_iou=0.5):
 
     image_dir = os.path.join("datasets", "vot2022", vot22_dataset_name, "images")
     masked_detections_dir = os.path.join(
-        f"results", "{vot22_dataset_name}", "masked_detections"
+        "results", f"{vot22_dataset_name}", f"masked_detections_{str(min_iou).replace('.', '_')}"
     )
-    masks_dir = os.path.join(f"results", "{vot22_dataset_name}", "masks", "{0}")
-    gt_dir = os.path.join(f"results", "{vot22_dataset_name}", "gt")
-    bboxes_dir = os.path.join(f"results", "{vot22_dataset_name}", "bboxes", "{0}.txt")
+    masks_dir = os.path.join("results", f"{vot22_dataset_name}", "masks", "{0}")
+    gt_dir = os.path.join("results", f"{vot22_dataset_name}", "gt")
+    bboxes_dir = os.path.join("results", f"{vot22_dataset_name}", "bboxes", "{0}.txt")
 
     shape = None
 
-    if not os.path.exists(f"results", "{vot22_dataset_name}"):
-        os.mkdir(f"results", "{vot22_dataset_name}")
+    if not os.path.exists(f"results/{vot22_dataset_name}"):
+        os.mkdir(f"results/{vot22_dataset_name}")
 
     if not os.path.exists(masked_detections_dir):
         os.mkdir(masked_detections_dir)
@@ -224,7 +226,7 @@ def dataset_evaluator(vot22_dataset_name, min_iou=0.5):
         image_list = []
         mask_list = []
 
-        open(os.path.join(f"results", "{vot22_dataset_name}", "ious.txt"), "w").close()
+        open(os.path.join("results", f"{vot22_dataset_name}", "ious.txt"), "w").close()
 
         for idx, rle in tqdm(enumerate(rle_data)):
             splitted_rle = rle[1:].split(",")
@@ -279,10 +281,16 @@ def dataset_evaluator(vot22_dataset_name, min_iou=0.5):
                 mask_list.append(np.zeros(shape[::-1], dtype=np.uint8))
                 continue
 
+            with open(bboxes_dir.format(image_name), "r") as f:
+                bbox_data = f.read().split("\n")[:-1]
+
+            mask_classes[idx] = CLASSES[int(bbox_data[max_iou_idx].split(",")[0])]
+            mask_class_list.append(CLASSES[int(bbox_data[max_iou_idx].split(",")[0])])
+
             with open(
-                os.path.join(f"results", "{vot22_dataset_name}", "ious.txt"), "a"
+                os.path.join("results", f"{vot22_dataset_name}", "ious.txt"), "a"
             ) as f:
-                f.write(f"{(idx + 1):08}:{max_iou:.3f}\n")
+                f.write(f"name:{(idx + 1):08},iou:{max_iou:.3f},class:{CLASSES[int(bbox_data[max_iou_idx].split(',')[0])]}\n")
 
             mask_list.append(
                 cv2.imread(
@@ -290,12 +298,6 @@ def dataset_evaluator(vot22_dataset_name, min_iou=0.5):
                     cv2.IMREAD_GRAYSCALE,
                 )
             )
-
-            with open(bboxes_dir.format(image_name), "r") as f:
-                bbox_data = f.read().split("\n")[:-1]
-
-            mask_classes[idx] = CLASSES[int(bbox_data[max_iou_idx].split(",")[0])]
-            mask_class_list.append(CLASSES[int(bbox_data[max_iou_idx].split(",")[0])])
 
             iou_values.append(max_iou)
             accuracy_values.append(
@@ -355,9 +357,9 @@ def dataset_evaluator(vot22_dataset_name, min_iou=0.5):
 
     fps = 30
     create_masked_video(
-        image_list, mask_list, vot22_dataset_name + ".mp4", fps, vot22_dataset_name
+        image_list, mask_list, os.path.join("results", vot22_dataset_name, f"_{str(min_iou).replace('.', '_')}.mp4"), fps, vot22_dataset_name
     )
-    with open("results.csv", "a") as f:
+    with open(f"results_{str(min_iou).replace('.', '_')}.csv", "a") as f:
         f.write(
             f"{vot22_dataset_name},{find_rates_d},{find_rates_n},{find_rates:.3f},{macc:.3f},{miou:.3f},{mdice:.3f},{most_frequent(mask_class_list)},{mask_class_list.count(most_frequent(mask_class_list))}\n"
         )
@@ -375,28 +377,36 @@ if __name__ == "__main__":
     vot_datasets = []
     iou_values_to_test = [0.1 * i for i in range(10)]
 
+    iou_values_to_test = iou_values_to_test[1:]
+
     for seq in data["sequences"]:
         vot_datasets.append(seq["name"])
 
     for dataset in vot_datasets:
-        if os.path.exists(f"results", "{dataset}/"):
-            print(f"results", "{dataset} exists. Continuing...")
+        if os.path.exists(f"results_{dataset}/"):
+            os.system(f"mv results_{dataset} results/{dataset}")
+            continue
+
+        if os.path.exists(f"results/{dataset}/"):
+            print(f"results/{dataset} exists. Continuing...")
             continue
 
         os.system(
-            f"python demo/demo.py --config-file configs/SOLOv2/R101_3x.yaml --input ./datasets/vot2022/{dataset}/images --output ./results_{dataset} --opts MODEL.WEIGHTS weights/SOLOv2_R101_3x.pth"
+            f"python demo/demo.py --config-file configs/SOLOv2/R101_3x.yaml --input ./datasets/vot2022/{dataset}/images --output ./results/{dataset} --opts MODEL.WEIGHTS weights/SOLOv2_R101_3x.pth"
         )
-        os.system(f"mv results/masks results", "{dataset}/masks")
+        os.system(f"mv results/masks results/{dataset}/masks")
 
-    with open("results.csv", "w") as f:
-        f.write(
-            f"dataset,total_images,found,find_rates,acc,miou,dice,most_repetitive_class,most_repetitive_class_count\n"
-        )
+    for iou in iou_values_to_test:
+        with open(f"results_{f'{iou:.1f}'.replace('.', '_')}.csv", "w") as f:
+            f.write(
+                f"dataset,total_images,found,find_rates,acc,miou,dice,most_repetitive_class,most_repetitive_class_count\n"
+            )
 
     # with open("results_nz.txt", "w") as f:
     #     f.write(
     #         f"dataset,miou,acc,dice,found,total_images,find_rates,most_repetitive_class,most_repetitive_class_count\n"
     #     )
 
-    for dataset in vot_datasets:
-        dataset_evaluator(dataset)
+    for iou in iou_values_to_test:
+        for dataset in vot_datasets:
+            dataset_evaluator(dataset, min_iou=iou)
