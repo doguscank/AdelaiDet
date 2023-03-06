@@ -359,7 +359,7 @@ def dataset_evaluator(vot22_dataset_name, min_iou=0.5):
     create_masked_video(
         image_list, mask_list, os.path.join("results", vot22_dataset_name, f"_{str(min_iou).replace('.', '_')}.mp4"), fps, vot22_dataset_name
     )
-    with open(f"results_{str(min_iou).replace('.', '_')}.csv", "a") as f:
+    with open(f"results_{str(f'{min_iou:.3f}').replace('.', '_')}.csv", "a") as f:
         f.write(
             f"{vot22_dataset_name},{find_rates_d},{find_rates_n},{find_rates:.3f},{macc:.3f},{miou:.3f},{mdice:.3f},{most_frequent(mask_class_list)},{mask_class_list.count(most_frequent(mask_class_list))}\n"
         )
