@@ -190,7 +190,7 @@ def dataset_evaluator(vot22_dataset_name, min_iou=0.5):
 
     image_dir = os.path.join("datasets", "vot2022", vot22_dataset_name, "images")
     masked_detections_dir = os.path.join(
-        "results", f"{vot22_dataset_name}", f"masked_detections_{str(min_iou).replace('.', '_')}"
+        "results", f"{vot22_dataset_name}", f"masked_detections_{str(f'{min_iou:.3f}').replace('.', '_')}"
     )
     masks_dir = os.path.join("results", f"{vot22_dataset_name}", "masks", "{0}")
     gt_dir = os.path.join("results", f"{vot22_dataset_name}", "gt")
@@ -357,7 +357,7 @@ def dataset_evaluator(vot22_dataset_name, min_iou=0.5):
 
     fps = 30
     create_masked_video(
-        image_list, mask_list, os.path.join("results", vot22_dataset_name, f"_{str(min_iou).replace('.', '_')}.mp4"), fps, vot22_dataset_name
+        image_list, mask_list, os.path.join("results", vot22_dataset_name, f"_{str(f'{min_iou:.3f}').replace('.', '_')}.mp4"), fps, vot22_dataset_name
     )
     with open(f"results_{str(f'{min_iou:.3f}').replace('.', '_')}.csv", "a") as f:
         f.write(

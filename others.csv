@@ -1,0 +1,17 @@
+dataset,total_images,found,find_rates,acc,miou,dice,most_repetitive_class,most_repetitive_class_count
+bag,311,85,0.273,0.273,0.233,0.26,traffic light,31
+ball2,41,0,0.0,0.0,0.0,0.0,,0
+ball3,171,18,0.105,0.105,0.078,0.091,sports ball,14
+book,175,35,0.2,0.199,0.164,0.187,chair,19
+bubble,243,114,0.469,0.468,0.419,0.447,frisbee,74
+dinosaur,326,93,0.285,0.279,0.218,0.255,bird,25
+drone1,355,0,0.0,0.0,0.0,0.0,,0
+drone_across,147,3,0.02,0.02,0.015,0.019,person,2
+frisbee,248,75,0.302,0.302,0.225,0.266,frisbee,75
+hand,267,0,0.0,0.0,0.0,0.0,,0
+hand2,145,0,0.0,0.0,0.0,0.0,,0
+helicopter,708,66,0.093,0.092,0.068,0.083,person,39
+leaves,63,0,0.0,0.0,0.0,0.0,,0
+motocross1,164,61,0.372,0.37,0.296,0.34,motorcycle,33
+tennis,213,0,0.0,0.0,0.0,0.0,,0
+wheel,101,0,0.0,0.0,0.0,0.0,,0
