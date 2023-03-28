@@ -4,22 +4,24 @@ import os
 annot_url = "https://data.votchallenge.net/vot2022/sts/{}.zip"
 image_url = "https://data.votchallenge.net/sequences/{}.zip"
 
-with open("description.json", "r") as f:
+with open("/home/dogus/final_ws/solov2_venv/src/AdelaiDet/description.json", "r") as f:
     data = json.load(f)
 
 sequences = data["sequences"]
 
 for sequence in sequences:
     name = sequence["name"]
+    if name not in ["bolt1", "car1"]:
+        continue
     
     image_uid = sequence["channels"]["color"]["uid"]
 
     dataset_path = os.path.join(
-        os.path.expanduser("~"), "AdelaiDet", "datasets", "vot2022", name
+        os.path.expanduser("~"), "final_ws", "solov2_venv", "src", "AdelaiDet", "datasets", "vot2022", name
     )
 
     if not os.path.exists(dataset_path):
-        os.mkdir(dataset_path)
+        os.makedirs(dataset_path, exist_ok=True)
     else:
         continue
 
