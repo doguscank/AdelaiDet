@@ -172,9 +172,9 @@ class SOLOv2(nn.Module):
         
     def get_ground_truth_single(self, img_idx, gt_instances, mask_feat_size):
         gt_bboxes_raw = gt_instances[img_idx].gt_boxes.tensor
-        gt_labels_raw = gt_instances[img_idx].gt_classes
+        GT_Classes_raw = gt_instances[img_idx].gt_classes
         gt_masks_raw = gt_instances[img_idx].gt_masks.tensor
-        device = gt_labels_raw[0].device
+        device = GT_Classes_raw[0].device
 
         # ins
         gt_areas = torch.sqrt((gt_bboxes_raw[:, 2] - gt_bboxes_raw[:, 0]) * (
@@ -191,18 +191,18 @@ class SOLOv2(nn.Module):
             hit_indices = ((gt_areas >= lower_bound) & (gt_areas <= upper_bound)).nonzero().flatten()
             num_ins = len(hit_indices)
 
-            ins_label = []
+            Instance_GT = []
             grid_order = []
             # Create a SxS grid to store GT categories
             cate_label = torch.zeros([num_grid, num_grid], dtype=torch.int64, device=device)
             cate_label = torch.fill_(cate_label, self.num_classes)
-            # Create a SxS array to indicate ... (gridde instance olup olmadığını tutar)
+            # Create an array with S^2 elements to indicate ... (gridde instance olup olmadığını tutar)
             Instance_Indication_GT = torch.zeros([num_grid ** 2], dtype=torch.bool, device=device)
             
             # No instances with specifies area size
             if num_ins == 0:
-                ins_label = torch.zeros([0, mask_feat_size[0], mask_feat_size[1]], dtype=torch.uint8, device=device)
-                Instance_GT_List.append(ins_label)
+                Instance_GT = torch.zeros([0, mask_feat_size[0], mask_feat_size[1]], dtype=torch.uint8, device=device)
+                Instance_GT_List.append(Instance_GT)
                 Category_GT_List.append(cate_label)
                 Instance_Indication_GT_list.append(Instance_Indication_GT)
                 grid_order_list.append([])
@@ -210,7 +210,7 @@ class SOLOv2(nn.Module):
 
             # Get GTs for hit indices
             gt_bboxes = gt_bboxes_raw[hit_indices]
-            gt_labels = gt_labels_raw[hit_indices]
+            GT_Classes = GT_Classes_raw[hit_indices]
             gt_masks = gt_masks_raw[hit_indices, ...]
 
             half_ws = 0.5 * (gt_bboxes[:, 2] - gt_bboxes[:, 0]) * self.sigma
@@ -232,64 +232,78 @@ class SOLOv2(nn.Module):
             #########################################
 
             for seg_mask, gt_label, half_h, half_w, center_h, center_w, valid_mask_flag in\
-                zip(gt_masks, gt_labels, half_hs, half_ws, center_hs, center_ws, valid_mask_flags):
+                zip(gt_masks, GT_Classes, half_hs, half_ws, center_hs, center_ws, valid_mask_flags):
 
                 if not valid_mask_flag:
                     continue
+
+                # sizes
                 upsampled_size = (mask_feat_size[0] * 4, mask_feat_size[1] * 4)
                 coord_w = int((center_w / upsampled_size[1]) // (1. / num_grid))
                 coord_h = int((center_h / upsampled_size[0]) // (1. / num_grid))
 
                 # left, top, right, down
+                # finds where these boxes in grids
                 top_box = max(0, int(((center_h - half_h) / upsampled_size[0]) // (1. / num_grid)))
                 down_box = min(num_grid - 1, int(((center_h + half_h) / upsampled_size[0]) // (1. / num_grid)))
                 left_box = max(0, int(((center_w - half_w) / upsampled_size[1]) // (1. / num_grid)))
                 right_box = min(num_grid - 1, int(((center_w + half_w) / upsampled_size[1]) // (1. / num_grid)))
 
+                # grid coords
                 top = max(top_box, coord_h-1)
                 down = min(down_box, coord_h+1)
                 left = max(coord_w-1, left_box)
                 right = min(right_box, coord_w+1)
 
-                # Maskenin hangi gridlere denk geldiğini bulup oralara gerekli atamaları yap
                 # Category assignments
                 cate_label[top:(down+1), left:(right+1)] = gt_label
+
+                # Maskenin hangi gridlere denk geldiğini bulup oralara gerekli atamaları yap
                 for i in range(top, down+1):
                     for j in range(left, right+1):
                         # Gridin i * S + j şeklinde flatten halinin indexi
-                        label = int(i * num_grid + j)
+                        Flat_Grid_Index = int(i * num_grid + j)
 
-                        # Neden mask_feat_size boyutunda????????
+                        # mask_feat_size is the prediction size therefore the maximum mask size
                         Current_Instance_GT = torch.zeros([mask_feat_size[0], mask_feat_size[1]], dtype=torch.uint8,
                                                     device=device)
-                        # Maskeyi yerleştir
+                        # Put mask
                         Current_Instance_GT[:seg_mask.shape[0], :seg_mask.shape[1]] = seg_mask
-                        ins_label.append(Current_Instance_GT)
-                        Instance_Indication_GT[label] = True
+                        Instance_GT.append(Current_Instance_GT)
+                        Instance_Indication_GT[Flat_Grid_Index] = True
                         # Grid order tut ki hangisi hangisi bilesin
-                        grid_order.append(label)
-            if len(ins_label) == 0:
-                ins_label = torch.zeros([0, mask_feat_size[0], mask_feat_size[1]], dtype=torch.uint8, device=device)
+                        grid_order.append(Flat_Grid_Index)
+            if len(Instance_GT) == 0:
+                Instance_GT = torch.zeros([0, mask_feat_size[0], mask_feat_size[1]], dtype=torch.uint8, device=device)
             else:
-                ins_label = torch.stack(ins_label, 0)
-            Instance_GT_List.append(ins_label)
+                Instance_GT = torch.stack(Instance_GT, 0)
+            Instance_GT_List.append(Instance_GT)
             Category_GT_List.append(cate_label)
             Instance_Indication_GT_list.append(Instance_Indication_GT)
             grid_order_list.append(grid_order)
         return Instance_GT_List, Category_GT_List, Instance_Indication_GT_list, grid_order_list
 
     def loss(self, Category_Predictions, Kernel_Predictions, Instance_Predictions, Targets):
-        pass
         Instance_GT_List, Category_GT_List, Instance_Indication_GT_list, grid_order_list = Targets
         # ins
-        ins_labels = [torch.cat([ins_labels_level_img
-                                 for ins_labels_level_img in ins_labels_level], 0)
-                      for ins_labels_level in zip(*Instance_GT_List)]
+        Instance_GTs = [torch.cat([Instance_GTs_level_img
+                                 for Instance_GTs_level_img in Instance_GTs_level], 0)
+                      for Instance_GTs_level in zip(*Instance_GT_List)]
 
-        Kernel_Predictions = [[Kernel_Predictions_level_img.view(Kernel_Predictions_level_img.shape[0], -1)[:, grid_orders_level_img]
-                         for Kernel_Predictions_level_img, grid_orders_level_img in
-                         zip(Kernel_Predictions_level, grid_orders_level)]
-                        for Kernel_Predictions_level, grid_orders_level in zip(Kernel_Predictions, zip(*grid_order_list))]
+        # Kernel_Predictions = [[Kernel_Predictions_level_img.view(Kernel_Predictions_level_img.shape[0], -1)[:, grid_orders_level_img]
+        #                  for Kernel_Predictions_level_img, grid_orders_level_img in
+        #                  zip(Kernel_Predictions_level, grid_orders_level)]
+        #                 for Kernel_Predictions_level, grid_orders_level in zip(Kernel_Predictions, zip(*grid_order_list))]
+        # Equivalent of ^^^^^^^^^^^^^ is given vvvvvvvvvvvvvvvvvvvvv
+        Kernel_Predictions = []
+        for Kernel_Predictions_level, grid_orders_level in zip(Kernel_Predictions, zip(*grid_order_list)):
+            Kernel_Predictions_level_img_list = []
+            for Kernel_Predictions_level_img, grid_order_level_img in zip(Kernel_Predictions_level, grid_orders_level):
+                Kernel_Predictions_level_img_view = Kernel_Predictions_level_img.view(Kernel_Predictions_level_img.shape[0], -1)
+                Kernel_Predictions_level_img_selected = Kernel_Predictions_level_img_view[:, grid_order_level_img]
+                Kernel_Predictions_level_img_list.append(Kernel_Predictions_level_img_selected)
+            Kernel_Predictions.append(Kernel_Predictions_level_img_list)
+
         # generate masks
         Instance_Predictions_list = []
         for b_kernel_pred in Kernel_Predictions:
@@ -322,7 +336,7 @@ class SOLOv2(nn.Module):
 
         # dice loss
         loss_ins = []
-        for input, target in zip(Instance_Predictions_list, ins_labels):
+        for input, target in zip(Instance_Predictions_list, Instance_GTs):
             if input is None:
                 continue
             input = torch.sigmoid(input)
