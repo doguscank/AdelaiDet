@@ -110,11 +110,11 @@ class SOLOv2(nn.Module):
         images = self.preprocess_image(batched_inputs)
         if "instances" in batched_inputs[0]:
             gt_instances = [x["instances"].to(self.device) for x in batched_inputs]
-        elif "targets" in batched_inputs[0]:
+        elif "Targets" in batched_inputs[0]:
             log_first_n(
-                logging.WARN, "'targets' in the model inputs is now renamed to 'instances'!", n=10
+                logging.WARN, "'Targets' in the model inputs is now renamed to 'instances'!", n=10
             )
-            gt_instances = [x["targets"].to(self.device) for x in batched_inputs]
+            gt_instances = [x["Targets"].to(self.device) for x in batched_inputs]
         else:
             gt_instances = None
 
@@ -135,8 +135,8 @@ class SOLOv2(nn.Module):
             return loss and so on.
             """
             mask_feat_size = mask_pred.size()[-2:]
-            targets = self.get_ground_truth(gt_instances, mask_feat_size)
-            losses = self.loss(cate_pred, kernel_pred, mask_pred, targets)
+            Targets = self.get_ground_truth(gt_instances, mask_feat_size)
+            losses = self.loss(cate_pred, kernel_pred, mask_pred, Targets)
             return losses
         else:
             # point nms.
@@ -158,17 +158,17 @@ class SOLOv2(nn.Module):
 
     @torch.no_grad()
     def get_ground_truth(self, gt_instances, mask_feat_size=None):
-        ins_label_list, cate_label_list, ins_ind_label_list, grid_order_list = [], [], [], []
+        Instance_GT_List, Category_GT_List, Instance_Indication_GT_list, grid_order_list = [], [], [], []
         for img_idx in range(len(gt_instances)):
-            cur_ins_label_list, cur_cate_label_list, \
-            cur_ins_ind_label_list, cur_grid_order_list = \
+            cur_Instance_GT_List, cur_Category_GT_List, \
+            cur_Instance_Indication_GT_list, cur_grid_order_list = \
                 self.get_ground_truth_single(img_idx, gt_instances,
                                              mask_feat_size=mask_feat_size)
-            ins_label_list.append(cur_ins_label_list)
-            cate_label_list.append(cur_cate_label_list)
-            ins_ind_label_list.append(cur_ins_ind_label_list)
+            Instance_GT_List.append(cur_Instance_GT_List)
+            Category_GT_List.append(cur_Category_GT_List)
+            Instance_Indication_GT_list.append(cur_Instance_Indication_GT_list)
             grid_order_list.append(cur_grid_order_list)
-        return ins_label_list, cate_label_list, ins_ind_label_list, grid_order_list
+        return Instance_GT_List, Category_GT_List, Instance_Indication_GT_list, grid_order_list
         
     def get_ground_truth_single(self, img_idx, gt_instances, mask_feat_size):
         gt_bboxes_raw = gt_instances[img_idx].gt_boxes.tensor
@@ -180,29 +180,35 @@ class SOLOv2(nn.Module):
         gt_areas = torch.sqrt((gt_bboxes_raw[:, 2] - gt_bboxes_raw[:, 0]) * (
                 gt_bboxes_raw[:, 3] - gt_bboxes_raw[:, 1]))
 
-        ins_label_list = []
-        cate_label_list = []
-        ins_ind_label_list = []
+        Instance_GT_List = []
+        Category_GT_List = []
+        Instance_Indication_GT_list = []
         grid_order_list = []
         for (lower_bound, upper_bound), stride, num_grid \
                 in zip(self.scale_ranges, self.strides, self.num_grids):
 
+            # Find where are the instances that satisfy the area conditions
             hit_indices = ((gt_areas >= lower_bound) & (gt_areas <= upper_bound)).nonzero().flatten()
             num_ins = len(hit_indices)
 
             ins_label = []
             grid_order = []
+            # Create a SxS grid to store GT categories
             cate_label = torch.zeros([num_grid, num_grid], dtype=torch.int64, device=device)
             cate_label = torch.fill_(cate_label, self.num_classes)
-            ins_ind_label = torch.zeros([num_grid ** 2], dtype=torch.bool, device=device)
-
+            # Create a SxS array to indicate ... (gridde instance olup olmadığını tutar)
+            Instance_Indication_GT = torch.zeros([num_grid ** 2], dtype=torch.bool, device=device)
+            
+            # No instances with specifies area size
             if num_ins == 0:
                 ins_label = torch.zeros([0, mask_feat_size[0], mask_feat_size[1]], dtype=torch.uint8, device=device)
-                ins_label_list.append(ins_label)
-                cate_label_list.append(cate_label)
-                ins_ind_label_list.append(ins_ind_label)
+                Instance_GT_List.append(ins_label)
+                Category_GT_List.append(cate_label)
+                Instance_Indication_GT_list.append(Instance_Indication_GT)
                 grid_order_list.append([])
                 continue
+
+            # Get GTs for hit indices
             gt_bboxes = gt_bboxes_raw[hit_indices]
             gt_labels = gt_labels_raw[hit_indices]
             gt_masks = gt_masks_raw[hit_indices, ...]
@@ -210,17 +216,24 @@ class SOLOv2(nn.Module):
             half_ws = 0.5 * (gt_bboxes[:, 2] - gt_bboxes[:, 0]) * self.sigma
             half_hs = 0.5 * (gt_bboxes[:, 3] - gt_bboxes[:, 1]) * self.sigma
 
-            # mass center
+            # Mass center
             center_ws, center_hs = center_of_mass(gt_masks)
             valid_mask_flags = gt_masks.sum(dim=-1).sum(dim=-1) > 0
 
+            #########################################
+            # Some numerical shit starting
             output_stride = 4
             gt_masks = gt_masks.permute(1, 2, 0).to(dtype=torch.uint8).cpu().numpy()
             gt_masks = imrescale(gt_masks, scale=1./output_stride)
             if len(gt_masks.shape) == 2:
                 gt_masks = gt_masks[..., None]
             gt_masks = torch.from_numpy(gt_masks).to(dtype=torch.uint8, device=device).permute(2, 0, 1)
-            for seg_mask, gt_label, half_h, half_w, center_h, center_w, valid_mask_flag in zip(gt_masks, gt_labels, half_hs, half_ws, center_hs, center_ws, valid_mask_flags):
+            # Ended
+            #########################################
+
+            for seg_mask, gt_label, half_h, half_w, center_h, center_w, valid_mask_flag in\
+                zip(gt_masks, gt_labels, half_hs, half_ws, center_hs, center_ws, valid_mask_flags):
+
                 if not valid_mask_flag:
                     continue
                 upsampled_size = (mask_feat_size[0] * 4, mask_feat_size[1] * 4)
@@ -238,72 +251,78 @@ class SOLOv2(nn.Module):
                 left = max(coord_w-1, left_box)
                 right = min(right_box, coord_w+1)
 
+                # Maskenin hangi gridlere denk geldiğini bulup oralara gerekli atamaları yap
+                # Category assignments
                 cate_label[top:(down+1), left:(right+1)] = gt_label
                 for i in range(top, down+1):
                     for j in range(left, right+1):
+                        # Gridin i * S + j şeklinde flatten halinin indexi
                         label = int(i * num_grid + j)
 
-                        cur_ins_label = torch.zeros([mask_feat_size[0], mask_feat_size[1]], dtype=torch.uint8,
+                        # Neden mask_feat_size boyutunda????????
+                        Current_Instance_GT = torch.zeros([mask_feat_size[0], mask_feat_size[1]], dtype=torch.uint8,
                                                     device=device)
-                        cur_ins_label[:seg_mask.shape[0], :seg_mask.shape[1]] = seg_mask
-                        ins_label.append(cur_ins_label)
-                        ins_ind_label[label] = True
+                        # Maskeyi yerleştir
+                        Current_Instance_GT[:seg_mask.shape[0], :seg_mask.shape[1]] = seg_mask
+                        ins_label.append(Current_Instance_GT)
+                        Instance_Indication_GT[label] = True
+                        # Grid order tut ki hangisi hangisi bilesin
                         grid_order.append(label)
             if len(ins_label) == 0:
                 ins_label = torch.zeros([0, mask_feat_size[0], mask_feat_size[1]], dtype=torch.uint8, device=device)
             else:
                 ins_label = torch.stack(ins_label, 0)
-            ins_label_list.append(ins_label)
-            cate_label_list.append(cate_label)
-            ins_ind_label_list.append(ins_ind_label)
+            Instance_GT_List.append(ins_label)
+            Category_GT_List.append(cate_label)
+            Instance_Indication_GT_list.append(Instance_Indication_GT)
             grid_order_list.append(grid_order)
-        return ins_label_list, cate_label_list, ins_ind_label_list, grid_order_list
+        return Instance_GT_List, Category_GT_List, Instance_Indication_GT_list, grid_order_list
 
-    def loss(self, cate_preds, kernel_preds, ins_pred, targets):
+    def loss(self, Category_Predictions, Kernel_Predictions, Instance_Predictions, Targets):
         pass
-        ins_label_list, cate_label_list, ins_ind_label_list, grid_order_list = targets
+        Instance_GT_List, Category_GT_List, Instance_Indication_GT_list, grid_order_list = Targets
         # ins
         ins_labels = [torch.cat([ins_labels_level_img
                                  for ins_labels_level_img in ins_labels_level], 0)
-                      for ins_labels_level in zip(*ins_label_list)]
+                      for ins_labels_level in zip(*Instance_GT_List)]
 
-        kernel_preds = [[kernel_preds_level_img.view(kernel_preds_level_img.shape[0], -1)[:, grid_orders_level_img]
-                         for kernel_preds_level_img, grid_orders_level_img in
-                         zip(kernel_preds_level, grid_orders_level)]
-                        for kernel_preds_level, grid_orders_level in zip(kernel_preds, zip(*grid_order_list))]
+        Kernel_Predictions = [[Kernel_Predictions_level_img.view(Kernel_Predictions_level_img.shape[0], -1)[:, grid_orders_level_img]
+                         for Kernel_Predictions_level_img, grid_orders_level_img in
+                         zip(Kernel_Predictions_level, grid_orders_level)]
+                        for Kernel_Predictions_level, grid_orders_level in zip(Kernel_Predictions, zip(*grid_order_list))]
         # generate masks
-        ins_pred_list = []
-        for b_kernel_pred in kernel_preds:
+        Instance_Predictions_list = []
+        for b_kernel_pred in Kernel_Predictions:
             b_mask_pred = []
             for idx, kernel_pred in enumerate(b_kernel_pred):
 
                 if kernel_pred.size()[-1] == 0:
                     continue
-                cur_ins_pred = ins_pred[idx, ...]
-                H, W = cur_ins_pred.shape[-2:]
+                cur_Instance_Predictions = Instance_Predictions[idx, ...]
+                H, W = cur_Instance_Predictions.shape[-2:]
                 N, I = kernel_pred.shape
-                cur_ins_pred = cur_ins_pred.unsqueeze(0)
+                cur_Instance_Predictions = cur_Instance_Predictions.unsqueeze(0)
                 kernel_pred = kernel_pred.permute(1, 0).view(I, -1, 1, 1)
-                cur_ins_pred = F.conv2d(cur_ins_pred, kernel_pred, stride=1).view(-1, H, W)
-                b_mask_pred.append(cur_ins_pred)
+                cur_Instance_Predictions = F.conv2d(cur_Instance_Predictions, kernel_pred, stride=1).view(-1, H, W)
+                b_mask_pred.append(cur_Instance_Predictions)
             if len(b_mask_pred) == 0:
                 b_mask_pred = None
             else:
                 b_mask_pred = torch.cat(b_mask_pred, 0)
-            ins_pred_list.append(b_mask_pred)
+            Instance_Predictions_list.append(b_mask_pred)
 
-        ins_ind_labels = [
-            torch.cat([ins_ind_labels_level_img.flatten()
-                       for ins_ind_labels_level_img in ins_ind_labels_level])
-            for ins_ind_labels_level in zip(*ins_ind_label_list)
+        Instance_Indication_GTs = [
+            torch.cat([Instance_Indication_GTs_level_img.flatten()
+                       for Instance_Indication_GTs_level_img in Instance_Indication_GTs_level])
+            for Instance_Indication_GTs_level in zip(*Instance_Indication_GT_list)
         ]
-        flatten_ins_ind_labels = torch.cat(ins_ind_labels)
+        flatten_Instance_Indication_GTs = torch.cat(Instance_Indication_GTs)
 
-        num_ins = flatten_ins_ind_labels.sum()
+        num_ins = flatten_Instance_Indication_GTs.sum()
 
         # dice loss
         loss_ins = []
-        for input, target in zip(ins_pred_list, ins_labels):
+        for input, target in zip(Instance_Predictions_list, ins_labels):
             if input is None:
                 continue
             input = torch.sigmoid(input)
@@ -316,23 +335,23 @@ class SOLOv2(nn.Module):
         cate_labels = [
             torch.cat([cate_labels_level_img.flatten()
                        for cate_labels_level_img in cate_labels_level])
-            for cate_labels_level in zip(*cate_label_list)
+            for cate_labels_level in zip(*Category_GT_List)
         ]
         flatten_cate_labels = torch.cat(cate_labels)
 
-        cate_preds = [
+        Category_Predictions = [
             cate_pred.permute(0, 2, 3, 1).reshape(-1, self.num_classes)
-            for cate_pred in cate_preds
+            for cate_pred in Category_Predictions
         ]
-        flatten_cate_preds = torch.cat(cate_preds)
+        flatten_Category_Predictions = torch.cat(Category_Predictions)
 
         # prepare one_hot
         pos_inds = torch.nonzero(flatten_cate_labels != self.num_classes).squeeze(1)
 
-        flatten_cate_labels_oh = torch.zeros_like(flatten_cate_preds)
+        flatten_cate_labels_oh = torch.zeros_like(flatten_Category_Predictions)
         flatten_cate_labels_oh[pos_inds, flatten_cate_labels[pos_inds]] = 1
 
-        loss_cate = self.focal_loss_weight * sigmoid_focal_loss_jit(flatten_cate_preds, flatten_cate_labels_oh,
+        loss_cate = self.focal_loss_weight * sigmoid_focal_loss_jit(flatten_Category_Predictions, flatten_cate_labels_oh,
                                     gamma=self.focal_loss_gamma,
                                     alpha=self.focal_loss_alpha,
                                     reduction="sum") / (num_ins + 1)
@@ -376,7 +395,7 @@ class SOLOv2(nn.Module):
         return results
 
     def inference_single_image(
-            self, cate_preds, kernel_preds, seg_preds, cur_size, ori_size
+            self, Category_Predictions, Kernel_Predictions, seg_preds, cur_size, ori_size
     ):
         # overall info.
         h, w = cur_size
@@ -385,8 +404,8 @@ class SOLOv2(nn.Module):
         upsampled_size_out = (int(f_h*ratio), int(f_w*ratio))
 
         # process.
-        inds = (cate_preds > self.score_threshold)
-        cate_scores = cate_preds[inds]
+        inds = (Category_Predictions > self.score_threshold)
+        cate_scores = Category_Predictions[inds]
         if len(cate_scores) == 0:
             results = Instances(ori_size)
             results.scores = torch.tensor([])
@@ -395,14 +414,14 @@ class SOLOv2(nn.Module):
             results.pred_boxes = Boxes(torch.tensor([]))
             return results
 
-        # cate_labels & kernel_preds
+        # cate_labels & Kernel_Predictions
         inds = inds.nonzero()
         cate_labels = inds[:, 1]
-        kernel_preds = kernel_preds[inds[:, 0]]
+        Kernel_Predictions = Kernel_Predictions[inds[:, 0]]
 
         # trans vector.
         size_trans = cate_labels.new_tensor(self.num_grids).pow(2).cumsum(0)
-        strides = kernel_preds.new_ones(size_trans[-1])
+        strides = Kernel_Predictions.new_ones(size_trans[-1])
 
         n_stage = len(self.num_grids)
         strides[:size_trans[0]] *= self.instance_strides[0]
@@ -412,9 +431,9 @@ class SOLOv2(nn.Module):
 
 
         # mask encoding.
-        N, I = kernel_preds.shape
-        kernel_preds = kernel_preds.view(N, I, 1, 1)
-        seg_preds = F.conv2d(seg_preds, kernel_preds, stride=1).squeeze(0).sigmoid()
+        N, I = Kernel_Predictions.shape
+        Kernel_Predictions = Kernel_Predictions.view(N, I, 1, 1)
+        seg_preds = F.conv2d(seg_preds, Kernel_Predictions, stride=1).squeeze(0).sigmoid()
 
         # mask.
         seg_masks = seg_preds > self.mask_threshold
