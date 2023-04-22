@@ -547,7 +547,10 @@ class SOLOv2(nn.Module):
         # mask encoding.
         N, I = Kernel_Predictions.shape
         Kernel_Predictions = Kernel_Predictions.view(N, I, 1, 1)
+        print(f"I shape: {seg_preds.shape}")
+        print(f"K shape: {Kernel_Predictions.shape}")
         seg_preds = F.conv2d(seg_preds, Kernel_Predictions, stride=1).squeeze(0).sigmoid()
+        print(f"M shape: {seg_preds.shape}")
 
         # mask.
         seg_masks = seg_preds > self.mask_threshold
