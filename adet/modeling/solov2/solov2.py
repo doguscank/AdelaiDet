@@ -517,6 +517,12 @@ class SOLOv2(nn.Module):
         ratio = math.ceil(h/f_h)
         upsampled_size_out = (int(f_h*ratio), int(f_w*ratio))
 
+        print("-"*40)
+        print("Unfiltered shapes")
+        print(f"I shape: {seg_preds.shape}")
+        print(f"K shape: {Kernel_Predictions.shape}")
+        print("-"*40)
+
         # process.
         inds = (Category_Predictions > self.score_threshold)
         cate_scores = Category_Predictions[inds]
