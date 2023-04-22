@@ -519,6 +519,7 @@ class SOLOv2(nn.Module):
 
         print("-"*40)
         print("Unfiltered shapes")
+        print(f"Cate shape: {Category_Predictions.shape}")
         print(f"I shape: {seg_preds.shape}")
         print(f"K shape: {Kernel_Predictions.shape}")
         print("-"*40)
