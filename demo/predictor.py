@@ -80,13 +80,13 @@ class VisualizationDemo(object):
                 instances = predictions["instances"].to(self.cpu_device)
 
                 image_name = path.split("/")[-1]
-                mask_path = os.path.join(os.path.expanduser("~"), "AdelaiDet", "results", "masks", image_name.split(".")[0])
+                mask_path = os.path.join(os.path.expanduser("~"), "final_ws", "solov2_venv", "src", "AdelaiDet", "results", "masks", image_name.split(".")[0])
                 
                 if not os.path.exists(mask_path):
                     os.makedirs(mask_path, 0o755, True)
 
                 for idx, pred_mask in enumerate(instances.get_fields()["pred_masks"]):
-                    cv2.imwrite(os.path.join(mask_path, image_name.replace(".jpg", f"_{idx:04}.jpg")), pred_mask.cpu().numpy().astype(np.uint8) * 255)
+                    cv2.imwrite(os.path.join(mask_path, image_name.replace(".jpg",".png").replace(".png", f"_{idx:04}.png")), pred_mask.cpu().numpy().astype(np.uint8) * 255)
                 
                 pred_scores = instances.get_fields()["scores"].cpu().numpy()
                 pred_classes = instances.get_fields()["pred_classes"].cpu().numpy()

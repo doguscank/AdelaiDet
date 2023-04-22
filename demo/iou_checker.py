@@ -95,9 +95,9 @@ vehicle_cls = ["bicycle", "car", "motorcycle", "bus", "truck"]
 animal_cls = ["bird", "cat", "dog", "horse", "sheep", "cow"]
 other_cls = list(set(CLASSES) - set(human_cls) - set(vehicle_cls) - set(animal_cls))
 
-human_datasets = ["agility", "basketball", "bolt1", "diver", "girl", "graduate", "gymnastics1", "gymnastics2", "gymnastics3", "handball1", "handball2", "iceskater1", "iceskater2", "marathon", "matrix", "polo", "rowing", "shaking", "singer2", "singer3", "soccer1", "soccer2", "soldier", "surfing"]
+human_datasets = ["basketball", "bolt1", "diver", "girl", "graduate", "gymnastics1", "gymnastics2", "gymnastics3", "handball1", "handball2", "iceskater1", "iceskater2", "marathon", "matrix", "polo", "rowing", "shaking", "singer2", "singer3", "soccer1", "soccer2", "soldier", "surfing"]
 vehicle_datasets = ["car1", "wiper"]
-animal_datasets = ["animal", "ants1", "birds1", "birds2", "butterfly", "crabs1", "fernando", "fish1", "fish2", "flamingo1", "kangaroo", "lamb", "monkey", "nature", "rabbit", "rabbit2", "snake", "tiger", "zebrafish"]
+animal_datasets = ["agility", "animal", "ants1", "birds1", "birds2", "butterfly", "crabs1", "fernando", "fish1", "fish2", "flamingo1", "kangaroo", "lamb", "monkey", "nature", "rabbit", "rabbit2", "snake", "tiger", "zebrafish"]
 other_datasets = ["bag", "ball2", "ball3", "book", "bubble", "conduction", "dinosaur", "drone1", "drone_across", "frisbee", "hand", "hand2", "helicopter", "leaves", "motocross1", "tennis", "wheel"]
 
 def most_frequent(List):
@@ -168,7 +168,7 @@ def create_masked_video(images, masks, output_file, fps, dataset_name, min_iou):
     out = cv2.VideoWriter(output_file, fourcc, fps, (width, height))
 
     masked_detections_dir = os.path.join(
-        "results", f"{dataset_name}", "masked_detections_" + (f'{min_iou:.3f}').replace('.', '_')
+        "results", f"{dataset_name}", "masked_detections_" + (f'{min_iou:.1f}').replace('.', '_')
     )
 
     for i in range(len(images)):
@@ -199,7 +199,7 @@ def dataset_evaluator(vot22_dataset_name, min_iou=0.5):
 
     image_dir = os.path.join("datasets", "vot2022", vot22_dataset_name, "images")
     masked_detections_dir = os.path.join(
-        "results", f"{vot22_dataset_name}", f"masked_detections_{str(f'{min_iou:.3f}').replace('.', '_')}"
+        "results", f"{vot22_dataset_name}", f"masked_detections_{str(f'{min_iou:.1f}').replace('.', '_')}"
     )
     masks_dir = os.path.join("results", f"{vot22_dataset_name}", "masks", "{0}")
     gt_dir = os.path.join("results", f"{vot22_dataset_name}", "gt")
@@ -237,6 +237,7 @@ def dataset_evaluator(vot22_dataset_name, min_iou=0.5):
 
         open(os.path.join("results", f"{vot22_dataset_name}", "ious.txt"), "w").close()
 
+        print(vot22_dataset_name)
         for idx, rle in tqdm(enumerate(rle_data)):
             splitted_rle = rle[1:].split(",")
             bbox = splitted_rle[:4]
@@ -255,6 +256,7 @@ def dataset_evaluator(vot22_dataset_name, min_iou=0.5):
             try:
                 mask_paths = sorted(os.listdir(masks_dir.format(image_name)))
             except:
+                print("No mask paths")
                 iou_values.append(0)
                 accuracy_values.append(0)
                 dice_values.append(0)
@@ -294,12 +296,23 @@ def dataset_evaluator(vot22_dataset_name, min_iou=0.5):
                 bbox_data = f.read().split("\n")[:-1]
 
             mask_class = CLASSES[int(bbox_data[max_iou_idx].split(",")[0])]
+
+            for dataset, dataset_cls in zip([human_datasets, vehicle_datasets, animal_datasets], [human_cls, vehicle_cls, animal_cls]):
+                if vot22_dataset_name in dataset:
+                    if mask_class in dataset_cls:
+                        break
+                elif vot22_dataset_name in other_datasets:
+                    if mask_class in other_cls:
+                        break
+            else:
+                iou_values.append(0)
+                accuracy_values.append(0)
+                dice_values.append(0)
+                mask_list.append(np.zeros(shape[::-1], dtype=np.uint8))
+                continue
+            
+
             mask_classes[idx] = mask_class
-
-            for dataset_cls in [human_datasets, vehicle_datasets, animal_datasets, other_datasets]:
-                if vot22_dataset_name in dataset_cls:
-                    pass
-
             mask_class_list.append(mask_class)
 
             with open(
@@ -372,9 +385,9 @@ def dataset_evaluator(vot22_dataset_name, min_iou=0.5):
 
     fps = 30
     create_masked_video(
-        image_list, mask_list, os.path.join("results", vot22_dataset_name, f"_{str(f'{min_iou:.3f}').replace('.', '_')}.mp4"), fps, vot22_dataset_name, min_iou
+        image_list, mask_list, os.path.join("results", vot22_dataset_name, f"_{str(f'{min_iou:.1f}').replace('.', '_')}.mp4"), fps, vot22_dataset_name, min_iou
     )
-    with open(f"results_{str(f'{min_iou:.3f}').replace('.', '_')}.csv", "a") as f:
+    with open(f"results_{str(f'{min_iou:.1f}').replace('.', '_')}.csv", "a") as f:
         f.write(
             f"{vot22_dataset_name},{find_rates_d},{find_rates_n},{find_rates:.3f},{macc:.3f},{miou:.3f},{mdice:.3f},{most_frequent(mask_class_list)},{mask_class_list.count(most_frequent(mask_class_list))}\n"
         )
@@ -397,9 +410,11 @@ if __name__ == "__main__":
     for seq in data["sequences"]:
         vot_datasets.append(seq["name"])
 
-    vot_datasets = ["bolt1", "car1"]
+    # vot_datasets = ["bolt1"]
 
     for dataset in vot_datasets:
+        os.makedirs("results/masks", 0o755, exist_ok=True)
+        
         if os.path.exists(f"results_{dataset}/"):
             os.system(f"mv results_{dataset} results/{dataset}")
             continue
@@ -408,10 +423,10 @@ if __name__ == "__main__":
             print(f"results/{dataset} exists. Continuing...")
             continue
 
-        # os.system(
-        #     f"python demo/demo.py --config-file configs/SOLOv2/R101_3x.yaml --input ./datasets/vot2022/{dataset}/images --output ./results/{dataset} --opts MODEL.WEIGHTS weights/SOLOv2_R101_3x.pth"
-        # )
-        # os.system(f"mv results/masks results/{dataset}/masks")
+        os.system(
+            f"python demo/demo.py --config-file configs/SOLOv2/R101_3x.yaml --input ./datasets/vot2022/{dataset}/images --output ./results/{dataset} --opts MODEL.WEIGHTS weights/SOLOv2_R101_3x.pth"
+        )
+        os.system(f"mv results/masks results/{dataset}/masks")
 
     for iou in iou_values_to_test:
         with open(f"results_{f'{iou:.1f}'.replace('.', '_')}.csv", "w") as f:
