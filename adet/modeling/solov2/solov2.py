@@ -739,7 +739,7 @@ class SOLOv2InsHead(nn.Module):
 
         for idx, feature in enumerate(features):
             ins_kernel_feat = feature
-            print(f"category head || {i}th feature size: {ins_kernel_feat.shape}")
+            print(f"category head || {idx}th feature size: {ins_kernel_feat.shape}")
             # concat coord
             x_range = torch.linspace(-1, 1, ins_kernel_feat.shape[-1], device=ins_kernel_feat.device)
             y_range = torch.linspace(-1, 1, ins_kernel_feat.shape[-2], device=ins_kernel_feat.device)
