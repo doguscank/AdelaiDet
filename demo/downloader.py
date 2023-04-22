@@ -11,8 +11,8 @@ sequences = data["sequences"]
 
 for sequence in sequences:
     name = sequence["name"]
-    if name not in ["bolt1", "car1"]:
-        continue
+    # if name not in ["bolt1", "car1"]:
+    #     continue
     
     image_uid = sequence["channels"]["color"]["uid"]
 

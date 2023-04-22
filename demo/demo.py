@@ -116,7 +116,7 @@ if __name__ == "__main__":
                 out_filename = os.path.join(args.output, "masked_images", os.path.basename(path))
                 visualized_output.save(out_filename)
 
-                with open(out_filename.replace("png", "txt").replace("masked_images", "bboxes"), "w") as f:
+                with open(out_filename.replace("png", "txt").replace("jpg", "txt").replace("masked_images", "bboxes"), "w") as f:
                     for _class, _score, _bbox in list(
                         zip(
                             predictions["instances"].get_fields()["pred_classes"].cpu().numpy(),

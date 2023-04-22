@@ -39,15 +39,15 @@ def plot_weighted_averages(csv_files):
         columns = ["find_rates", "acc", "miou", "dice"]
         colors = ["red", "blue", "green", "orange"]
         for i in range(4):
-            x = np.arange(0.0, 1.0, 0.1)
+            x = np.arange(0.1, 1.0, 0.1)
             y = weighted_averages[columns[i]]
             ax.plot(x, y, color=colors[i], label=names[i], marker='o')
 
         # Add labels, title and legend
         ax.grid(True)
-        ax.set_xlim(-0.025, 0.925)
-        ax.set_xticks(np.arange(0., 1.0, 0.1))
-        ax.set_yticks(np.arange(0., 1.1, 0.1))
+        ax.set_xlim(0.1-0.025, 0.925)
+        ax.set_xticks(np.arange(0.1, 1.0, 0.1))
+        ax.set_yticks(np.arange(0.0, 1.1, 0.1))
         ax.set_ylim(-0.025, 1.025)
         ax.set_xlabel("Threshold value")
         ax.set_ylabel("Metric value")
@@ -149,12 +149,12 @@ def generate_latex_table(dt, th):
 
     return latex_table.replace(" nan ", " ").replace("_", r"\_")
 
-csv = pd.read_csv("/home/dogus/Desktop/adelai/results_0_7.csv")
+csv = pd.read_csv("/home/dogus/Desktop/adelai/results_0_5.csv")
 
-plot_weighted_averages([f"/home/dogus/Desktop/adelai/results_0_{str(x)}.csv" for x in range(10)])
-exit()
+# plot_weighted_averages([f"/home/dogus/final_ws/solov2_venv/src/AdelaiDet/results_0_{str(x)}.csv" for x in range(1,10)])
+# exit()
 
 print(generate_latex_table(
-    csv, 0.7
+    csv, 0.5
 ))
 

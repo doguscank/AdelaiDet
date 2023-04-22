@@ -1,3 +1,0 @@
-dataset,total_images,found,find_rates,acc,miou,dice,most_repetitive_class,most_repetitive_class_count
-car1,742,582,0.784,0.779,0.663,0.731,car,508
-wiper,341,184,0.54,0.538,0.419,0.482,car,129
