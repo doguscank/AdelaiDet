@@ -371,6 +371,106 @@ class SOLOv2(nn.Module):
                                     reduction="sum") / (num_ins + 1)
         return {'loss_ins': loss_ins,
                 'loss_cate': loss_cate}
+    
+    '''
+    import torch
+    from torch.nn import functional as F
+
+
+    def sigmoid_focal_loss(
+        inputs: torch.Tensor,
+        targets: torch.Tensor,
+        alpha: float = -1,
+        gamma: float = 2,
+        reduction: str = "none",
+    ) -> torch.Tensor:
+        """
+        Loss used in RetinaNet for dense detection: https://arxiv.org/abs/1708.02002.
+        Args:
+            inputs: A float tensor of arbitrary shape.
+                    The predictions for each example.
+            targets: A float tensor with the same shape as inputs. Stores the binary
+                    classification label for each element in inputs
+                    (0 for the negative class and 1 for the positive class).
+            alpha: (optional) Weighting factor in range (0,1) to balance
+                    positive vs negative examples. Default = -1 (no weighting).
+            gamma: Exponent of the modulating factor (1 - p_t) to
+                balance easy vs hard examples.
+            reduction: 'none' | 'mean' | 'sum'
+                    'none': No reduction will be applied to the output.
+                    'mean': The output will be averaged.
+                    'sum': The output will be summed.
+        Returns:
+            Loss tensor with the reduction option applied.
+        """
+        inputs = inputs.float()
+        targets = targets.float()
+        p = torch.sigmoid(inputs)
+        ce_loss = F.binary_cross_entropy_with_logits(inputs, targets, reduction="none")
+        p_t = p * targets + (1 - p) * (1 - targets)
+        loss = ce_loss * ((1 - p_t) ** gamma)
+
+        if alpha >= 0:
+            alpha_t = alpha * targets + (1 - alpha) * (1 - targets)
+            loss = alpha_t * loss
+
+        if reduction == "mean":
+            loss = loss.mean()
+        elif reduction == "sum":
+            loss = loss.sum()
+
+        return loss
+
+
+    sigmoid_focal_loss_jit: "torch.jit.ScriptModule" = torch.jit.script(sigmoid_focal_loss)
+
+
+    def sigmoid_focal_loss_star(
+        inputs: torch.Tensor,
+        targets: torch.Tensor,
+        alpha: float = -1,
+        gamma: float = 1,
+        reduction: str = "none",
+    ) -> torch.Tensor:
+        """
+        FL* described in RetinaNet paper Appendix: https://arxiv.org/abs/1708.02002.
+        Args:
+            inputs: A float tensor of arbitrary shape.
+                    The predictions for each example.
+            targets: A float tensor with the same shape as inputs. Stores the binary
+                    classification label for each element in inputs
+                    (0 for the negative class and 1 for the positive class).
+            alpha: (optional) Weighting factor in range (0,1) to balance
+                    positive vs negative examples. Default = -1 (no weighting).
+            gamma: Gamma parameter described in FL*. Default = 1 (no weighting).
+            reduction: 'none' | 'mean' | 'sum'
+                    'none': No reduction will be applied to the output.
+                    'mean': The output will be averaged.
+                    'sum': The output will be summed.
+        Returns:
+            Loss tensor with the reduction option applied.
+        """
+        inputs = inputs.float()
+        targets = targets.float()
+        shifted_inputs = gamma * (inputs * (2 * targets - 1))
+        loss = -(F.logsigmoid(shifted_inputs)) / gamma
+
+        if alpha >= 0:
+            alpha_t = alpha * targets + (1 - alpha) * (1 - targets)
+            loss *= alpha_t
+
+        if reduction == "mean":
+            loss = loss.mean()
+        elif reduction == "sum":
+            loss = loss.sum()
+
+        return loss
+
+
+    sigmoid_focal_loss_star_jit: "torch.jit.ScriptModule" = torch.jit.script(
+        sigmoid_focal_loss_star
+    )
+    '''
 
     @staticmethod
     def split_feats(feats):
@@ -652,6 +752,7 @@ class SOLOv2InsHead(nn.Module):
             kernel_feat = ins_kernel_feat
             seg_num_grid = self.num_grids[idx]
             kernel_feat = F.interpolate(kernel_feat, size=seg_num_grid, mode='bilinear')
+            print(f"Kernel features size: {kernel_feat.shape}")
             cate_feat = kernel_feat[:, :-2, :, :]
 
             # kernel
@@ -662,6 +763,10 @@ class SOLOv2InsHead(nn.Module):
             cate_feat = self.cate_tower(cate_feat)
             cate_pred.append(self.cate_pred(cate_feat))
 
+        print("predictions of category head: ")
+        for i, (c, k) in enumerate(zip(cate_pred, kernel_pred)):
+            print(f"{i}th cate pred shape: {c.shape}")
+            print(f"{i}th kernel pred shape: {k.shape}")
         return cate_pred, kernel_pred
 
 
@@ -766,6 +871,7 @@ class SOLOv2MaskHead(nn.Module):
         feature_add_all_level = self.convs_all_levels[0](features[0])
         for i in range(1, self.num_levels):
             mask_feat = features[i]
+            print(f"{i}th mask_feat shape: {mask_feat.shape}")
             if i == 3:  # add for coord.
                 x_range = torch.linspace(-1, 1, mask_feat.shape[-1], device=mask_feat.device)
                 y_range = torch.linspace(-1, 1, mask_feat.shape[-2], device=mask_feat.device)
@@ -778,4 +884,5 @@ class SOLOv2MaskHead(nn.Module):
             feature_add_all_level = feature_add_all_level + self.convs_all_levels[i](mask_feat)
 
         mask_pred = self.conv_pred(feature_add_all_level)
+        print(f"mask_pred shape: {mask_pred.shape}")
         return mask_pred
