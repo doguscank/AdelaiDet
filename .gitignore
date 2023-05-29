@@ -11,6 +11,7 @@ inference_test_output
 *.zip
 *.mp4
 *.avi
+*.csv
 
 # compilation and distribution
 __pycache__

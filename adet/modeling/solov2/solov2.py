@@ -517,12 +517,12 @@ class SOLOv2(nn.Module):
         ratio = math.ceil(h/f_h)
         upsampled_size_out = (int(f_h*ratio), int(f_w*ratio))
 
-        print("-"*40)
-        print("Unfiltered shapes")
-        print(f"Cate shape: {Category_Predictions.shape}")
-        print(f"I shape: {seg_preds.shape}")
-        print(f"K shape: {Kernel_Predictions.shape}")
-        print("-"*40)
+        # print("-"*40)
+        # print("Unfiltered shapes")
+        # print(f"Cate shape: {Category_Predictions.shape}")
+        # print(f"I shape: {seg_preds.shape}")
+        # print(f"K shape: {Kernel_Predictions.shape}")
+        # print("-"*40)
 
         # process.
         inds = (Category_Predictions > self.score_threshold)
@@ -554,12 +554,12 @@ class SOLOv2(nn.Module):
         # mask encoding.
         N, I = Kernel_Predictions.shape
         Kernel_Predictions = Kernel_Predictions.view(N, I, 1, 1)
-        print("-"*40)
-        print(f"I shape: {seg_preds.shape}")
-        print(f"K shape: {Kernel_Predictions.shape}")
+        # print("-"*40)
+        # print(f"I shape: {seg_preds.shape}")
+        # print(f"K shape: {Kernel_Predictions.shape}")
         seg_preds = F.conv2d(seg_preds, Kernel_Predictions, stride=1).squeeze(0).sigmoid()
-        print(f"M shape: {seg_preds.shape}")
-        print("-"*40)
+        # print(f"M shape: {seg_preds.shape}")
+        # print("-"*40)
 
         # mask.
         seg_masks = seg_preds > self.mask_threshold
@@ -749,10 +749,10 @@ class SOLOv2InsHead(nn.Module):
         cate_pred = []
         kernel_pred = []
 
-        print("-"*40)
+        # print("-"*40)
         for idx, feature in enumerate(features):
             ins_kernel_feat = feature
-            print(f"category head || {idx}th feature size: {ins_kernel_feat.shape}")
+            # print(f"category head || {idx}th feature size: {ins_kernel_feat.shape}")
             # concat coord
             x_range = torch.linspace(-1, 1, ins_kernel_feat.shape[-1], device=ins_kernel_feat.device)
             y_range = torch.linspace(-1, 1, ins_kernel_feat.shape[-2], device=ins_kernel_feat.device)
@@ -766,7 +766,7 @@ class SOLOv2InsHead(nn.Module):
             kernel_feat = ins_kernel_feat
             seg_num_grid = self.num_grids[idx]
             kernel_feat = F.interpolate(kernel_feat, size=seg_num_grid, mode='bilinear')
-            print(f"Kernel features size: {kernel_feat.shape}")
+            # print(f"Kernel features size: {kernel_feat.shape}")
             cate_feat = kernel_feat[:, :-2, :, :]
 
             # kernel
@@ -777,15 +777,15 @@ class SOLOv2InsHead(nn.Module):
             cate_feat = self.cate_tower(cate_feat)
             cate_pred.append(self.cate_pred(cate_feat))
         
-        print("-"*40)
+        # print("-"*40)
 
-        print("-"*40)
-        print("predictions of category head: ")
-        for i, (c, k) in enumerate(zip(cate_pred, kernel_pred)):
-            print(f"{i}th cate pred shape: {c.shape}")
-            print(f"{i}th kernel pred shape: {k.shape}")
-            print(f"{i}th grid size: {self.num_grids[i]}")
-        print("-"*40)
+        # print("-"*40)
+        # print("predictions of category head: ")
+        # for i, (c, k) in enumerate(zip(cate_pred, kernel_pred)):
+            # print(f"{i}th cate pred shape: {c.shape}")
+            # print(f"{i}th kernel pred shape: {k.shape}")
+            # print(f"{i}th grid size: {self.num_grids[i]}")
+        # print("-"*40)
 
         return cate_pred, kernel_pred
 
@@ -887,12 +887,12 @@ class SOLOv2MaskHead(nn.Module):
         assert len(features) == self.num_levels, \
             print("The number of input features should be equal to the supposed level.")
 
-        print("-"*40)
+        # print("-"*40)
         # bottom features first.
         feature_add_all_level = self.convs_all_levels[0](features[0])
         for i in range(1, self.num_levels):
             mask_feat = features[i]
-            print(f"{i}th mask_feat shape: {mask_feat.shape}")
+            # print(f"{i}th mask_feat shape: {mask_feat.shape}")
             if i == 3:  # add for coord.
                 x_range = torch.linspace(-1, 1, mask_feat.shape[-1], device=mask_feat.device)
                 y_range = torch.linspace(-1, 1, mask_feat.shape[-2], device=mask_feat.device)
@@ -905,6 +905,6 @@ class SOLOv2MaskHead(nn.Module):
             feature_add_all_level = feature_add_all_level + self.convs_all_levels[i](mask_feat)
 
         mask_pred = self.conv_pred(feature_add_all_level)
-        print(f"mask_pred shape: {mask_pred.shape}")
-        print("-"*40)
+        # print(f"mask_pred shape: {mask_pred.shape}")
+        # print("-"*40)
         return mask_pred

@@ -93,6 +93,7 @@ COCO_CLASSES = {
 WAYMO_CLASSES = {
     "TYPE_VEHICLE": "vehicle",
     "TYPE_PEDESTRIAN": "human",
+    "TYPE_CYCLIST": "human"
 }
 
 NEW_IDS = {
@@ -100,6 +101,11 @@ NEW_IDS = {
     "vehicle": 1,
     "human": 2,
 }
+
+DROP_OTHERS = True
+
+def drop_others(df):
+    return df[df['class_label'] != 0]
 
 def pred_cls_to_yolo(cls):
     for k,v in COCO_CLASSES.items():
@@ -125,6 +131,10 @@ def pred_to_yolo(df, image_width=1920, image_height=1280):
                              'y_center': y_center,
                              'box_width': box_width,
                              'box_height': box_height})
+    
+    if DROP_OTHERS:
+        yolo_box = drop_others(yolo_box)
+    
     return yolo_box
 
 
@@ -151,16 +161,35 @@ def waymo_to_yolo(df, image_width=1920, image_height=1280):
         'box_width': box_width,
         'box_height': box_height
     })
+    
+    if DROP_OTHERS:
+        yolo_box = drop_others(yolo_box)
 
     return yolo_box
 
 if __name__ == '__main__':
-    for waymo in glob("/home/dogus/final_ws/solov2_venv/src/AdelaiDet/datasets/waymo/segment-2607999228439188545_2960_000_2980_000/FRONTLAB/*.txt"):
-        fn = waymo.split("/")[-1]
-        df = waymo_to_yolo(pd.read_csv(waymo))
-        df.to_csv(os.path.join(os.path.expanduser("~"), "metrics", "waymo", fn), header=None, index=None, sep=" ")
-        
-    for pred in glob("/home/dogus/final_ws/solov2_venv/src/AdelaiDet/results/waymo/segment-2607999228439188545_2960_000_2980_000/bboxes/*.txt"):
-        fn = pred.split("/")[-1]
-        df = pred_to_yolo(pd.read_csv(pred))
-        df.to_csv(os.path.join(os.path.expanduser("~"), "metrics", "preds", fn), header=None, index=None, sep=" ")
+    for folder in os.listdir("/home/dogus/final_ws/solov2_venv/src/AdelaiDet/results/waymo"):
+        for waymo in sorted(glob(f"/home/dogus/final_ws/solov2_venv/src/AdelaiDet/datasets/waymo/{folder}/annotations/*.txt")):
+            try:
+                fn = waymo.split("/")[-1]
+                csv_file = pd.read_csv(waymo, header=None)
+                df = waymo_to_yolo(csv_file)
+                if DROP_OTHERS:
+                    os.makedirs(os.path.join(os.path.expanduser("~"), "waymo_metrics", folder, "gts_no_other"), exist_ok=True)
+                    df.to_csv(os.path.join(os.path.expanduser("~"), "waymo_metrics", folder, "gts_no_other", fn), header=None, index=None, sep=" ")
+                else:
+                    os.makedirs(os.path.join(os.path.expanduser("~"), "waymo_metrics", folder, "gts"), exist_ok=True)
+                    df.to_csv(os.path.join(os.path.expanduser("~"), "waymo_metrics", folder, "gts", fn), header=None, index=None, sep=" ")
+            except:
+                print("EXCEPTION")
+                print(waymo); exit()
+            
+        for pred in sorted(glob(f"/home/dogus/final_ws/solov2_venv/src/AdelaiDet/results/waymo/{folder}/bboxes/*.txt")):
+            fn = pred.split("/")[-1]
+            df = pred_to_yolo(pd.read_csv(pred, header=None))
+            if DROP_OTHERS:
+                os.makedirs(os.path.join(os.path.expanduser("~"), "waymo_metrics", folder, "preds_no_other"), exist_ok=True)
+                df.to_csv(os.path.join(os.path.expanduser("~"), "waymo_metrics", folder, "preds_no_other", fn), header=None, index=None, sep=" ")
+            else:
+                os.makedirs(os.path.join(os.path.expanduser("~"), "waymo_metrics", folder, "preds"), exist_ok=True)
+                df.to_csv(os.path.join(os.path.expanduser("~"), "waymo_metrics", folder, "preds", fn), header=None, index=None, sep=" ")

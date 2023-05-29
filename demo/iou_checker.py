@@ -384,9 +384,9 @@ def dataset_evaluator(vot22_dataset_name, min_iou=0.5):
     print("find_rates:", find_rates)
 
     fps = 30
-    create_masked_video(
-        image_list, mask_list, os.path.join("results", vot22_dataset_name, f"_{str(f'{min_iou:.1f}').replace('.', '_')}.mp4"), fps, vot22_dataset_name, min_iou
-    )
+    # create_masked_video(
+    #     image_list, mask_list, os.path.join("results", vot22_dataset_name, f"_{str(f'{min_iou:.1f}').replace('.', '_')}.mp4"), fps, vot22_dataset_name, min_iou
+    # )
     with open(f"results_{str(f'{min_iou:.1f}').replace('.', '_')}.csv", "a") as f:
         f.write(
             f"{vot22_dataset_name},{find_rates_d},{find_rates_n},{find_rates:.3f},{macc:.3f},{miou:.3f},{mdice:.3f},{most_frequent(mask_class_list)},{mask_class_list.count(most_frequent(mask_class_list))}\n"
