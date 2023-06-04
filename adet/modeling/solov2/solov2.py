@@ -563,17 +563,17 @@ class SOLOv2(nn.Module):
         # print(f"K shape: {Kernel_Predictions.shape}")
         seg_preds = F.conv2d(seg_preds, Kernel_Predictions, stride=1)
         print("seg_preds conv shape:", str(seg_preds.shape))
-        seg_preds = seg_preds.squeeze(0).sigmoid()
+        seg_preds = seg_preds.squeeze(0).sigmoid() # M^sigmoid
         print("seg_preds squeeze sigmod:", str(seg_preds.shape))
         # print(f"M shape: {seg_preds.shape}")
         # print("-"*40)
 
         # mask.
-        seg_masks = seg_preds > self.mask_threshold
-        sum_masks = seg_masks.sum((1, 2)).float()
+        seg_masks = seg_preds > self.mask_threshold # 1_{M_ilm}
+        sum_masks = seg_masks.sum((1, 2)).float() # Q_i
 
         # filter.
-        keep = sum_masks > strides
+        keep = sum_masks > strides # Q_i > S_i
         if keep.sum() == 0:
             results = Instances(ori_size)
             results.scores = torch.tensor([])
@@ -588,7 +588,7 @@ class SOLOv2(nn.Module):
         cate_scores = cate_scores[keep]
         cate_labels = cate_labels[keep]
 
-        # maskness.
+        # maskness = 1 / Q_i * \sum M^sigmoid * 1_{M_ilm}
         seg_scores = (seg_preds * seg_masks.float()).sum((1, 2)) / sum_masks
         cate_scores *= seg_scores
 

@@ -148,8 +148,10 @@ def matrix_nms(cate_labels, seg_masks, sum_masks, cate_scores, sigma=2.0, kernel
     if n_samples == 0:
         return []
 
-
+    print("matrix_nms: seg_masks before:", str(seg_masks.shape))
     seg_masks = seg_masks.reshape(n_samples, -1).float()
+    print("matrix_nms: seg_masks after:", str(seg_masks.shape))
+
     # inter.
     inter_matrix = torch.mm(seg_masks, seg_masks.transpose(1, 0))
     # union.
