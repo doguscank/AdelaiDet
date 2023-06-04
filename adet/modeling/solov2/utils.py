@@ -154,13 +154,18 @@ def matrix_nms(cate_labels, seg_masks, sum_masks, cate_scores, sigma=2.0, kernel
 
     # inter.
     inter_matrix = torch.mm(seg_masks, seg_masks.transpose(1, 0))
+    print("matrix_nms: inter_matrix:", str(inter_matrix.shape))
     # union.
     sum_masks_x = sum_masks.expand(n_samples, n_samples)
+    print("matrix_nms: sum_masks_x:", str(sum_masks_x.shape))
     # iou.
     iou_matrix = (inter_matrix / (sum_masks_x + sum_masks_x.transpose(1, 0) - inter_matrix)).triu(diagonal=1)
+    print("matrix_nms: iou_matrix:", str(iou_matrix.shape))
     # label_specific matrix.
     cate_labels_x = cate_labels.expand(n_samples, n_samples)
+    print("matrix_nms: cate_labels_x:", str(cate_labels_x.shape))
     label_matrix = (cate_labels_x == cate_labels_x.transpose(1, 0)).float().triu(diagonal=1)
+    print("matrix_nms: label_matrix:", str(label_matrix.shape))
     # IoU compensation
     compensate_iou, _ = (iou_matrix * label_matrix).max(0)
     compensate_iou = compensate_iou.expand(n_samples, n_samples).transpose(1, 0)
