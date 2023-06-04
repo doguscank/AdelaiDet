@@ -542,14 +542,18 @@ class SOLOv2(nn.Module):
 
         # trans vector.
         size_trans = cate_labels.new_tensor(self.num_grids).pow(2).cumsum(0)
+        print("size_trans:", str(size_trans))
         strides = Kernel_Predictions.new_ones(size_trans[-1])
+        print("init strides:", str(strides))
 
         n_stage = len(self.num_grids)
+        print("n_stage:", str(n_stage))
         strides[:size_trans[0]] *= self.instance_strides[0]
         for ind_ in range(1, n_stage):
             strides[size_trans[ind_ - 1]:size_trans[ind_]] *= self.instance_strides[ind_]
+        print("multiplied strides:", str(strides))
         strides = strides[inds[:, 0]]
-
+        print("filtered strides:", str(strides))
 
         # mask encoding.
         N, I = Kernel_Predictions.shape
