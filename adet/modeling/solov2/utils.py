@@ -160,7 +160,9 @@ def matrix_nms(cate_labels, seg_masks, sum_masks, cate_scores, sigma=2.0, kernel
     sum_masks_x = sum_masks.expand(n_samples, n_samples)
     print("matrix_nms: sum_masks_x:", str(sum_masks_x.shape))
     # iou.
-    iou_matrix = (inter_matrix / (sum_masks_x + sum_masks_x.transpose(1, 0) - inter_matrix)).triu(diagonal=1)
+    iou_matrix = (inter_matrix / (sum_masks_x + sum_masks_x.transpose(1, 0) - inter_matrix))
+    print("matrix_nms: iou_matrix before triu:", iou_matrix)
+    iou_matrix = iou_matrix.triu(diagonal=1)
     print("matrix_nms: iou_matrix:", str(iou_matrix.shape))
     print("matrix_nms: iou_matrix:", iou_matrix)
     # label_specific matrix.
