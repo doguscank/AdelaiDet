@@ -561,7 +561,10 @@ class SOLOv2(nn.Module):
         # print("-"*40)
         # print(f"I shape: {seg_preds.shape}")
         # print(f"K shape: {Kernel_Predictions.shape}")
-        seg_preds = F.conv2d(seg_preds, Kernel_Predictions, stride=1).squeeze(0).sigmoid()
+        seg_preds = F.conv2d(seg_preds, Kernel_Predictions, stride=1)
+        print("seg_preds conv shape:", str(seg_preds.shape))
+        seg_preds = seg_preds.squeeze(0).sigmoid()
+        print("seg_preds squeeze sigmod:", str(seg_preds.shape))
         # print(f"M shape: {seg_preds.shape}")
         # print("-"*40)
 
