@@ -5,100 +5,80 @@ import cv2
 import numpy as np
 from tqdm import tqdm
 
-from adet.modeling.MEInst.LME import IOUMetric
-
-CLASSES = (
-    "person",
-    "bicycle",
-    "car",
-    "motorcycle",
-    "airplane",
-    "bus",
-    "train",
-    "truck",
-    "boat",
-    "traffic light",
-    "fire hydrant",
-    "stop sign",
-    "parking meter",
-    "bench",
-    "bird",
-    "cat",
-    "dog",
-    "horse",
-    "sheep",
-    "cow",
-    "elephant",
-    "bear",
-    "zebra",
-    "giraffe",
-    "backpack",
-    "umbrella",
-    "handbag",
-    "tie",
-    "suitcase",
-    "frisbee",
-    "skis",
-    "snowboard",
-    "sports ball",
-    "kite",
-    "baseball bat",
-    "baseball glove",
-    "skateboard",
-    "surfboard",
-    "tennis racket",
-    "bottle",
-    "wine glass",
-    "cup",
-    "fork",
-    "knife",
-    "spoon",
-    "bowl",
-    "banana",
-    "apple",
-    "sandwich",
-    "orange",
-    "broccoli",
-    "carrot",
-    "hot dog",
-    "pizza",
-    "donut",
-    "cake",
-    "chair",
-    "couch",
-    "potted plant",
-    "bed",
-    "dining table",
-    "toilet",
-    "tv",
-    "laptop",
-    "mouse",
-    "remote",
-    "keyboard",
-    "cell phone",
-    "microwave",
-    "oven",
-    "toaster",
-    "sink",
-    "refrigerator",
-    "book",
-    "clock",
-    "vase",
-    "scissors",
-    "teddy bear",
-    "hair drier",
-    "toothbrush",
-)
 
 human_cls = ["person"]
 vehicle_cls = ["bicycle", "car", "motorcycle", "bus", "truck"]
 animal_cls = ["bird", "cat", "dog", "horse", "sheep", "cow"]
 other_cls = list(set(CLASSES) - set(human_cls) - set(vehicle_cls) - set(animal_cls))
 
-human_datasets = ["basketball", "bolt1", "diver", "girl", "graduate", "gymnastics1", "gymnastics2", "gymnastics3", "handball1", "handball2", "iceskater1", "iceskater2", "marathon", "matrix", "polo", "rowing", "shaking", "singer2", "singer3", "soccer1", "soccer2", "soldier", "surfing"]
+human_datasets = [
+    "basketball",
+    "bolt1",
+    "diver",
+    "girl",
+    "graduate",
+    "gymnastics1",
+    "gymnastics2",
+    "gymnastics3",
+    "handball1",
+    "handball2",
+    "iceskater1",
+    "iceskater2",
+    "marathon",
+    "matrix",
+    "polo",
+    "rowing",
+    "shaking",
+    "singer2",
+    "singer3",
+    "soccer1",
+    "soccer2",
+    "soldier",
+    "surfing",
+]
 vehicle_datasets = ["car1", "wiper"]
-animal_datasets = ["agility", "animal", "ants1", "birds1", "birds2", "butterfly", "crabs1", "fernando", "fish1", "fish2", "flamingo1", "kangaroo", "lamb", "monkey", "nature", "rabbit", "rabbit2", "snake", "tiger", "zebrafish"]
-other_datasets = ["bag", "ball2", "ball3", "book", "bubble", "conduction", "dinosaur", "drone1", "drone_across", "frisbee", "hand", "hand2", "helicopter", "leaves", "motocross1", "tennis", "wheel"]
+animal_datasets = [
+    "agility",
+    "animal",
+    "ants1",
+    "birds1",
+    "birds2",
+    "butterfly",
+    "crabs1",
+    "fernando",
+    "fish1",
+    "fish2",
+    "flamingo1",
+    "kangaroo",
+    "lamb",
+    "monkey",
+    "nature",
+    "rabbit",
+    "rabbit2",
+    "snake",
+    "tiger",
+    "zebrafish",
+]
+other_datasets = [
+    "bag",
+    "ball2",
+    "ball3",
+    "book",
+    "bubble",
+    "conduction",
+    "dinosaur",
+    "drone1",
+    "drone_across",
+    "frisbee",
+    "hand",
+    "hand2",
+    "helicopter",
+    "leaves",
+    "motocross1",
+    "tennis",
+    "wheel",
+]
+
 
 def most_frequent(List):
     if len(List) == 0:
@@ -168,7 +148,9 @@ def create_masked_video(images, masks, output_file, fps, dataset_name, min_iou):
     out = cv2.VideoWriter(output_file, fourcc, fps, (width, height))
 
     masked_detections_dir = os.path.join(
-        "results", f"{dataset_name}", "masked_detections_" + (f'{min_iou:.1f}').replace('.', '_')
+        "results",
+        f"{dataset_name}",
+        "masked_detections_" + (f"{min_iou:.1f}").replace(".", "_"),
     )
 
     for i in range(len(images)):
@@ -199,7 +181,9 @@ def dataset_evaluator(vot22_dataset_name, min_iou=0.5):
 
     image_dir = os.path.join("datasets", "vot2022", vot22_dataset_name, "images")
     masked_detections_dir = os.path.join(
-        "results", f"{vot22_dataset_name}", f"masked_detections_{str(f'{min_iou:.1f}').replace('.', '_')}"
+        "results",
+        f"{vot22_dataset_name}",
+        f"masked_detections_{str(f'{min_iou:.1f}').replace('.', '_')}",
     )
     masks_dir = os.path.join("results", f"{vot22_dataset_name}", "masks", "{0}")
     gt_dir = os.path.join("results", f"{vot22_dataset_name}", "gt")
@@ -297,7 +281,10 @@ def dataset_evaluator(vot22_dataset_name, min_iou=0.5):
 
             mask_class = CLASSES[int(bbox_data[max_iou_idx].split(",")[0])]
 
-            for dataset, dataset_cls in zip([human_datasets, vehicle_datasets, animal_datasets], [human_cls, vehicle_cls, animal_cls]):
+            for dataset, dataset_cls in zip(
+                [human_datasets, vehicle_datasets, animal_datasets],
+                [human_cls, vehicle_cls, animal_cls],
+            ):
                 if vot22_dataset_name in dataset:
                     if mask_class in dataset_cls:
                         break
@@ -310,7 +297,6 @@ def dataset_evaluator(vot22_dataset_name, min_iou=0.5):
                 dice_values.append(0)
                 mask_list.append(np.zeros(shape[::-1], dtype=np.uint8))
                 continue
-            
 
             mask_classes[idx] = mask_class
             mask_class_list.append(mask_class)
@@ -318,7 +304,9 @@ def dataset_evaluator(vot22_dataset_name, min_iou=0.5):
             with open(
                 os.path.join("results", f"{vot22_dataset_name}", "ious.txt"), "a"
             ) as f:
-                f.write(f"name:{(idx + 1):08},iou:{max_iou:.3f},class:{CLASSES[int(bbox_data[max_iou_idx].split(',')[0])]}\n")
+                f.write(
+                    f"name:{(idx + 1):08},iou:{max_iou:.3f},class:{CLASSES[int(bbox_data[max_iou_idx].split(',')[0])]}\n"
+                )
 
             mask_list.append(
                 cv2.imread(
@@ -414,7 +402,7 @@ if __name__ == "__main__":
 
     for dataset in vot_datasets:
         os.makedirs("results/masks", 0o755, exist_ok=True)
-        
+
         if os.path.exists(f"results_{dataset}/"):
             os.system(f"mv results_{dataset} results/{dataset}")
             continue

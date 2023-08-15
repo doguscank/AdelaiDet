@@ -97,6 +97,7 @@ if __name__ == "__main__":
         for path in tqdm.tqdm(args.input, disable=not args.output):
             # use PIL, to be consistent with evaluation
             img = read_image(path, format="BGR")
+
             start_time = time.time()
             predictions, visualized_output = demo.run_on_image(img, path)
             logger.info(
@@ -113,15 +114,31 @@ if __name__ == "__main__":
                 if not os.path.exists(os.path.join(args.output, "bboxes")):
                     os.makedirs(os.path.join(args.output, "bboxes"), 0o755, True)
 
-                out_filename = os.path.join(args.output, "masked_images", os.path.basename(path))
+                out_filename = os.path.join(
+                    args.output, "masked_images", os.path.basename(path)
+                )
                 visualized_output.save(out_filename)
 
-                with open(out_filename.replace("png", "txt").replace("jpg", "txt").replace("masked_images", "bboxes"), "w") as f:
+                with open(
+                    out_filename.replace("png", "txt")
+                    .replace("jpg", "txt")
+                    .replace("masked_images", "bboxes"),
+                    "w",
+                ) as f:
                     for _class, _score, _bbox in list(
                         zip(
-                            predictions["instances"].get_fields()["pred_classes"].cpu().numpy(),
-                            predictions["instances"].get_fields()["scores"].cpu().numpy(),
-                            predictions["instances"].get_fields()["pred_boxes"].tensor.cpu().numpy(),
+                            predictions["instances"]
+                            .get_fields()["pred_classes"]
+                            .cpu()
+                            .numpy(),
+                            predictions["instances"]
+                            .get_fields()["scores"]
+                            .cpu()
+                            .numpy(),
+                            predictions["instances"]
+                            .get_fields()["pred_boxes"]
+                            .tensor.cpu()
+                            .numpy(),
                         )
                     ):
                         f.write(str(_class))
