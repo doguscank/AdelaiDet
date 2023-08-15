@@ -31,7 +31,7 @@ folders = [
 
 for folder in tqdm.tqdm(folders):
     os.makedirs("results/masks", 0o755, exist_ok=True)
-        
+
     if os.path.exists(f"results_{folder}/"):
         os.system(f"mv results_{folder} results/waymo/{folder}")
         continue

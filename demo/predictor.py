@@ -58,12 +58,16 @@ class VisualizationDemo(object):
         # Convert image from OpenCV BGR format to Matplotlib RGB format.
         image = image[:, :, ::-1]
         if self.vis_text:
-            visualizer = TextVisualizer(image, self.metadata, instance_mode=self.instance_mode, cfg=self.cfg)
+            visualizer = TextVisualizer(
+                image, self.metadata, instance_mode=self.instance_mode, cfg=self.cfg
+            )
         else:
             # visualizer = Visualizer(image, self.metadata, instance_mode=self.instance_mode)
-            visualizer = VideoVisualizer(self.metadata, instance_mode=self.instance_mode)
-        
-        classes = visualizer.metadata.get("thing_classes", None)    
+            visualizer = VideoVisualizer(
+                self.metadata, instance_mode=self.instance_mode
+            )
+
+        classes = visualizer.metadata.get("thing_classes", None)
 
         if "bases" in predictions:
             self.vis_bases(predictions["bases"])
@@ -75,22 +79,42 @@ class VisualizationDemo(object):
         else:
             if "sem_seg" in predictions:
                 vis_output = visualizer.draw_sem_seg(
-                    predictions["sem_seg"].argmax(dim=0).to(self.cpu_device))
+                    predictions["sem_seg"].argmax(dim=0).to(self.cpu_device)
+                )
             if "instances" in predictions:
                 instances = predictions["instances"].to(self.cpu_device)
 
                 image_name = path.split("/")[-1]
-                mask_path = os.path.join(os.path.expanduser("~"), "final_ws", "solov2_venv", "src", "AdelaiDet", "results", "masks", image_name.split(".")[0])
-                
+                mask_path = os.path.join(
+                    os.path.expanduser("~"),
+                    "final_ws",
+                    "solov2_venv",
+                    "src",
+                    "AdelaiDet",
+                    "results",
+                    "masks",
+                    image_name.split(".")[0],
+                )
+
                 if not os.path.exists(mask_path):
                     os.makedirs(mask_path, 0o755, True)
 
                 for idx, pred_mask in enumerate(instances.get_fields()["pred_masks"]):
-                    cv2.imwrite(os.path.join(mask_path, image_name.replace(".jpg",".png").replace(".png", f"_{idx:04}.png")), pred_mask.cpu().numpy().astype(np.uint8) * 255)
-                
+                    cv2.imwrite(
+                        os.path.join(
+                            mask_path,
+                            image_name.replace(".jpg", ".png").replace(
+                                ".png", f"_{idx:04}.png"
+                            ),
+                        ),
+                        pred_mask.cpu().numpy().astype(np.uint8) * 255,
+                    )
+
                 pred_scores = instances.get_fields()["scores"].cpu().numpy()
                 pred_classes = instances.get_fields()["pred_classes"].cpu().numpy()
-                vis_output = visualizer.draw_instance_predictions(image, predictions=instances)
+                vis_output = visualizer.draw_instance_predictions(
+                    image, predictions=instances
+                )
 
         return predictions, vis_output
 
@@ -141,7 +165,9 @@ class VisualizationDemo(object):
                 )
             elif "instances" in predictions:
                 predictions = predictions["instances"].to(self.cpu_device)
-                vis_frame = video_visualizer.draw_instance_predictions(frame, predictions)
+                vis_frame = video_visualizer.draw_instance_predictions(
+                    frame, predictions
+                )
             elif "sem_seg" in predictions:
                 vis_frame = video_visualizer.draw_sem_seg(
                     frame, predictions["sem_seg"].argmax(dim=0).to(self.cpu_device)
